@@ -64,10 +64,13 @@ public class PlayerController : MonoBehaviour
             {
                 MoveLeft();
             }
-
-            if ((e & ActionType.Right) == ActionType.Right)
+            else if ((e & ActionType.Right) == ActionType.Right)
             {
                 MoveRight();
+            }
+            else
+            {
+//                Stop();
             }
         });
 
@@ -124,6 +127,11 @@ public class PlayerController : MonoBehaviour
     {
         var DetectSize = m_groundDetectTransform.localScale;
         return Physics2D.OverlapBox(m_groundDetectTransform.position, DetectSize, 0, m_layerGround);
+    }
+
+    public void Stop()
+    {
+        m_rigid.velocity = Vector2.zero;
     }
 
     public void MoveLeft()

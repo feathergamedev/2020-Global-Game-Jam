@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 1811860210144183155}
   - component: {fileID: -6633876480036218074}
   m_Layer: 0
-  m_Name: Stage0
+  m_Name: Stage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4022f273837c47a8a37af2b7615fbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_initPlayerPos: {x: -8, y: 8.5, z: 0}
+  m_initPlayerPos: {x: -4.1, y: 4.13, z: 0}
 --- !u!1 &1811860210235904305
 GameObject:
   m_ObjectHideFlags: 0
