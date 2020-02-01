@@ -58,6 +58,11 @@ namespace Repair.Dashboards
                 m_pressedKeyCodes.Remove(KeyCode.X);
             }
 
+            if (Input.GetKeyUp(KeyCode.C))
+            {
+                m_pressedKeyCodes.Remove(KeyCode.C);
+            }
+
             if (Input.GetKeyUp(KeyCode.R))
             {
                 m_pressedKeyCodes.Remove(KeyCode.R);
@@ -76,6 +81,11 @@ namespace Repair.Dashboards
             if (Input.GetKeyDown(KeyCode.X))
             {
                 m_pressedKeyCodes.Add(KeyCode.X);
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                m_pressedKeyCodes.Add(KeyCode.C);
             }
 
             if (Input.GetKeyDown(KeyCode.R))
