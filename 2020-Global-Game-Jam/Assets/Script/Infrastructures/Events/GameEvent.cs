@@ -9,19 +9,8 @@ namespace Repair.Infrastructures.Events
         Complete,
         Action,
         GameStart,
-    }
 
-    public class ListEvent : IEvent
-    {
-        public IEnumerable<ActionType> Types
-        {
-            get;
-        }
-
-        public ListEvent(IEnumerable<ActionType> types)
-        {
-            Types = types;
-        }
+        NerversRotation,
     }
 
     public class IntEvent : IEvent

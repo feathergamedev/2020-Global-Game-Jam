@@ -1,7 +1,7 @@
 ﻿using Repair.Infrastructures.Events;
 using UnityEngine;
 
-namespace Dashboards
+namespace Repair.Dashboards
 {
     public class ActionController : BaseCellController
     {

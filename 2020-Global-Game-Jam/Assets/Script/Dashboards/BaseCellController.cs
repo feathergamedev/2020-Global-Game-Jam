@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Dashboards
+namespace Repair.Dashboards
 {
     public class BaseCellController : MonoBehaviour
     {
