@@ -1,6 +1,5 @@
-using System;
 using NUnit.Framework;
-using Repair.Infrastructures;
+using Repair.Infrastructures.Events;
 
 namespace Repair.Tests
 {
