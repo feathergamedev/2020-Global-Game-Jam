@@ -6,9 +6,6 @@ namespace Dashboards
     public class BaseCellController : MonoBehaviour
     {
         [SerializeField]
-        protected Collider2D m_collider;
-
-        [SerializeField]
         private GameObject m_linkEffect;
 
 
