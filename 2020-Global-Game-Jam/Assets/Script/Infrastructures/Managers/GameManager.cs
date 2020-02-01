@@ -118,6 +118,24 @@ namespace Repair.Infrastructures.Managers
                 ProgressHelper.I.SetStage(0);
                 ReloadScene();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ProgressHelper.I.SetStage(0);
+                ReloadScene();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ProgressHelper.I.SetStage(1);
+                ReloadScene();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ProgressHelper.I.SetStage(2);
+                ReloadScene();
+            }
         }
     }
 }

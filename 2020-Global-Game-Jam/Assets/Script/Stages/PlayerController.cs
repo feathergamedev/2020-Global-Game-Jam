@@ -40,15 +40,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rigid;
 
     [SerializeField]
-    private SpriteRenderer m_renderer;
+    private Transform m_attackTransform;
 
     [SerializeField]
-    private Rigidbody2D Temp_camera;
+    private Animator m_catAnimator, m_weaponAnimator;
 
     private void Awake()
     {
         m_rigid = GetComponent<Rigidbody2D>();
-        m_renderer = GetComponent<SpriteRenderer>();
 
         EventEmitter.Add(GameEvent.Action, (value) =>
         {
@@ -112,6 +111,11 @@ public class PlayerController : MonoBehaviour
             m_moveSpeed = m_initMoveSpeed;
         }
 
+        if (Input.GetButtonDown("Attack"))
+        {
+            RequestAttack();
+        }
+
         #endregion
     }
 
@@ -146,6 +150,8 @@ public class PlayerController : MonoBehaviour
 
     public void MoveLeft()
     {
+        m_catAnimator.SetBool("Walk", true);
+
         //Fix: Stange Bug
         if (m_rigid == null)
         {
@@ -161,6 +167,8 @@ public class PlayerController : MonoBehaviour
 
     public void MoveRight()
     {
+        m_catAnimator.SetBool("Walk", true);
+
         //Fix: Stange Bug
         if (m_rigid == null)
         {
@@ -179,6 +187,33 @@ public class PlayerController : MonoBehaviour
         var sprintForce = m_sprintForce * ((m_isFacingRight==true) ? 1 : -1);
         Debug.Log(sprintForce);
         StartCoroutine(SprintPerform(sprintForce));        
+    }
+
+    public void RequestAttack()
+    {
+        m_weaponAnimator.SetTrigger("Attack");
+    }
+
+    public void AttackDetect()
+    {
+        Debug.Log("Attack!");
+
+        var radius = m_attackTransform.GetComponent<CircleCollider2D>().radius;
+
+        var result = Physics2D.OverlapCircleAll(m_attackTransform.position, radius);
+
+        if (result.Length == 0)
+            return;
+
+        for(int i=0; i<result.Length; i++)
+        {
+            var woodCase = result[i].GetComponent<WoodenCase>();
+
+            if (woodCase != null)
+            {
+                woodCase.Eliminated();
+            }
+        }
     }
 
     private IEnumerator SprintPerform(Vector2 force)
