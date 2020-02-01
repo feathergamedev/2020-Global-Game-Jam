@@ -750,6 +750,11 @@ PrefabInstance:
       propertyPath: m_isFacingRight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6806443999402019346, guid: 9ebb9393fb1c9475894a6d54e63bc43a,
+        type: 3}
+      propertyPath: m_sprintEffect
+      value: 
+      objectReference: {fileID: 1811860209770443747}
     - target: {fileID: 6806443999402019349, guid: 9ebb9393fb1c9475894a6d54e63bc43a,
         type: 3}
       propertyPath: m_Name
@@ -815,6 +820,12 @@ PrefabInstance:
 --- !u!4 &5138709994848771495 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6806443999402019351, guid: 9ebb9393fb1c9475894a6d54e63bc43a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1811860210294691760}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &1811860209770443747 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 592421971, guid: 9ebb9393fb1c9475894a6d54e63bc43a,
     type: 3}
   m_PrefabInstance: {fileID: 1811860210294691760}
   m_PrefabAsset: {fileID: 0}

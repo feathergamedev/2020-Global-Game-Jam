@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using Repair.Infrastructures.Events;
 
 public class InstantKill : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class InstantKill : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Failed.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            EventEmitter.Emit(GameEvent.Restart);
         }
     }
 }

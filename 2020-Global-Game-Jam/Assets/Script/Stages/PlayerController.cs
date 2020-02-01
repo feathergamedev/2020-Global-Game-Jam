@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private float m_jumpForce;
 
     [SerializeField]
-    private TrailRenderer m_dashEffect;
+    private TrailRenderer m_sprintEffect;
 
     [SerializeField]
     private Transform m_groundDetectTransform;
@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviour
     private LayerMask m_layerGround;
 
     [SerializeField]
-    private Vector2 m_dashForce;
+    private Vector2 m_sprintForce;
 
     [SerializeField]
-    private float m_dashDuration;
+    private float m_sprintDuration;
 
     [SerializeField]
     private Rigidbody2D m_rigid;
@@ -90,11 +90,11 @@ public class PlayerController : MonoBehaviour
             m_isOnGround = false;
         }
 
-        if (Input.GetButtonDown("Dash"))
+        if (Input.GetButtonDown("Sprint"))
         {
-            Dash();
+            Sprint();
         }
-        else if (Input.GetButtonUp("Dash"))
+        else if (Input.GetButtonUp("Sprint"))
         {
             m_moveSpeed = m_initMoveSpeed;
         }
@@ -120,20 +120,20 @@ public class PlayerController : MonoBehaviour
         m_renderer.flipX = false;
     }
 
-    public void Dash()
+    public void Sprint()
     {
-        var dashForce = m_dashForce * ((m_isFacingRight==true) ? 1 : -1);
-        Debug.Log(dashForce);
-        StartCoroutine(DashPerform(dashForce));        
+        var sprintForce = m_sprintForce * ((m_isFacingRight==true) ? 1 : -1);
+        Debug.Log(sprintForce);
+        StartCoroutine(SprintPerform(sprintForce));        
     }
 
-    private IEnumerator DashPerform(Vector2 force)
+    private IEnumerator SprintPerform(Vector2 force)
     {
-        m_dashEffect.emitting = true;
+        m_sprintEffect.emitting = true;
 
         m_rigid.velocity = force;
 /*
-        var time = m_dashDuration * 60f;
+        var time = m_sprintDuration * 60f;
 
         for(int i=0; i<time; i++)
         {
@@ -147,21 +147,21 @@ public class PlayerController : MonoBehaviour
         var curY = force.y;
         var isPerforming = true;
 
-        DOTween.To(() => curX, x => curX = x, 0, m_dashDuration);
-        DOTween.To(() => curY, y => curX = y, 0, m_dashDuration);
+        DOTween.To(() => curX, x => curX = x, 0, m_sprintDuration);
+        DOTween.To(() => curY, y => curX = y, 0, m_sprintDuration);
 
-        DOVirtual.DelayedCall(m_dashDuration, () => { isPerforming = false; });
+        DOVirtual.DelayedCall(m_sprintDuration, () => { isPerforming = false; });
 
-        for(int i=0; i<m_dashDuration*60f; i++)
+        for(int i=0; i<m_sprintDuration*60f; i++)
         {
             Debug.LogFormat("X:{0}, Y:{1}", curX, curY);
             newVelocity = new Vector2(curX, curY);
             Debug.LogFormat("NewVelocity is {0}", newVelocity);
             m_rigid.velocity = newVelocity;
-            yield return new WaitForSeconds(m_dashDuration / 60f);
+            yield return new WaitForSeconds(m_sprintDuration / 60f);
         }        
 
-        m_dashEffect.emitting = false;
+        m_sprintEffect.emitting = false;
         
 
         yield return null;
