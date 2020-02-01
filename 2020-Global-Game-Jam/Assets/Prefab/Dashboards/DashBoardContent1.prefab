@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22aff2c0198b4d1ea5bf3d882311f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 8720057070816165774}
   m_linkEffect: {fileID: 4585078847138885568}
 --- !u!1 &1226226205892548873
 GameObject:
@@ -462,14 +461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25409b3b4fc8343afa4d7885c7db59d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nerves: []
-  m_actions:
-  - {fileID: 8088143148884267721}
-  - {fileID: 4180421782439102769}
-  - {fileID: 8114017377014884288}
-  m_keyControllers:
-  - {fileID: 6875933759317201278}
-  - {fileID: 2329920748140072251}
+  m_nervesContainer: {fileID: 2067026494855381604}
+  m_actionContainer: {fileID: 2067026495557252427}
+  m_keyContainer: {fileID: 2067026495143319046}
 --- !u!1 &2542170754354924824
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b021a843f26e4c598b0c0d2ea2f22ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 0}
   m_linkEffect: {fileID: 1226226205892548873}
   m_actionType: 2
 --- !u!1 &2792615462435547561
@@ -703,7 +696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b021a843f26e4c598b0c0d2ea2f22ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 0}
   m_linkEffect: {fileID: 5480036174585293007}
   m_actionType: 4
 --- !u!1 &4390997611888789950
@@ -1384,7 +1376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6047a3e5bad464cfd9e2a76d74ce8766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 0}
   m_linkEffect: {fileID: 5582547973843863140}
   m_keyCode: 120
 --- !u!1 &6555495140405520274
@@ -1598,7 +1589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6047a3e5bad464cfd9e2a76d74ce8766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 0}
   m_linkEffect: {fileID: 4889339505019735560}
   m_keyCode: 122
 --- !u!61 &31223383407530423
@@ -1639,7 +1629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6047a3e5bad464cfd9e2a76d74ce8766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 0}
   m_linkEffect: {fileID: 4889339505019735560}
   m_keyCode: 122
 --- !u!1 &7464048363199078508
@@ -1790,7 +1779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22aff2c0198b4d1ea5bf3d882311f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 2182329695801407063}
   m_linkEffect: {fileID: 7930319396001724213}
 --- !u!1 &7884106520187651358
 GameObject:
@@ -1907,7 +1895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b021a843f26e4c598b0c0d2ea2f22ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_collider: {fileID: 0}
   m_linkEffect: {fileID: 4999147864596867283}
   m_actionType: 1
 --- !u!1 &7930319396001724213
