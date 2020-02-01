@@ -8,6 +8,7 @@ namespace Repair.Infrastructures.Events
         Restart,
         Complete,
         Action,
+        GameStart,
     }
 
     public class ListEvent : IEvent
