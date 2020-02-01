@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
 
     [SerializeField]
     private bool m_isOnGround;
+
+    [SerializeField]
+    private bool m_isFacingRight;
 
     [SerializeField]
     private float m_moveSpeed;
@@ -16,8 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float m_jumpForce;
 
-    private Vector2 m_curVelocity;
-
     [SerializeField]
     private TrailRenderer m_dashEffect;
 
@@ -25,13 +27,13 @@ public class PlayerController : MonoBehaviour
     private Transform m_groundDetectTransform;
 
     [SerializeField]
-    private Vector2 m_groundDetectSize;
-
-    [SerializeField]
     private LayerMask m_layerGround;
 
     [SerializeField]
-    private float m_dashSpeedUpRate;
+    private Vector2 m_dashForce;
+
+    [SerializeField]
+    private float m_dashDuration;
 
     [SerializeField]
     private Rigidbody2D m_rigid;
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        m_isOnGround = Physics2D.OverlapBox(m_groundDetectTransform.position, m_groundDetectSize, 0, m_layerGround);
+        m_isOnGround = GroundCheck();
 
         if (m_isOnGround)
         {
@@ -64,7 +66,8 @@ public class PlayerController : MonoBehaviour
         {
             MoveLeft();
         }
-        else
+
+        if (Input.GetButtonUp("Horizontal"))
         {
             m_rigid.velocity = new Vector2(0, m_rigid.velocity.y);
         }
@@ -77,31 +80,79 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Dash"))
         {
-            m_dashEffect.emitting = true;
             Dash();
         }
         else if (Input.GetButtonUp("Dash"))
         {
             m_moveSpeed = m_initMoveSpeed;
-            m_dashEffect.emitting = false;
         }
+    }
+
+    private bool GroundCheck()
+    {
+        var DetectSize = m_groundDetectTransform.localScale;
+        return Physics2D.OverlapBox(m_groundDetectTransform.position, DetectSize, 0, m_layerGround);
     }
 
     public void MoveLeft()
     {
         m_rigid.velocity = new Vector2(-m_moveSpeed, m_rigid.velocity.y);
+        m_isFacingRight = false;
         m_renderer.flipX = true;
     }
 
     public void MoveRight()
     {
         m_rigid.velocity = new Vector2(m_moveSpeed, m_rigid.velocity.y);
+        m_isFacingRight = true;
         m_renderer.flipX = false;
     }
 
     public void Dash()
     {
-        m_moveSpeed *= m_dashSpeedUpRate;
+        var dashForce = m_dashForce * ((m_isFacingRight==true) ? 1 : -1);
+        Debug.Log(dashForce);
+        StartCoroutine(DashPerform(dashForce));        
+    }
+
+    private IEnumerator DashPerform(Vector2 force)
+    {
+        m_dashEffect.emitting = true;
+
+        m_rigid.velocity = force;
+/*
+        var time = m_dashDuration * 60f;
+
+        for(int i=0; i<time; i++)
+        {
+            var newVelocity = force - force / time;
+            m_rigid.velocity = newVelocity;
+        }
+*/
+        
+        var newVelocity = force;
+        var curX = force.x;
+        var curY = force.y;
+        var isPerforming = true;
+
+        DOTween.To(() => curX, x => curX = x, 0, m_dashDuration);
+        DOTween.To(() => curY, y => curX = y, 0, m_dashDuration);
+
+        DOVirtual.DelayedCall(m_dashDuration, () => { isPerforming = false; });
+
+        for(int i=0; i<m_dashDuration*60f; i++)
+        {
+            Debug.LogFormat("X:{0}, Y:{1}", curX, curY);
+            newVelocity = new Vector2(curX, curY);
+            Debug.LogFormat("NewVelocity is {0}", newVelocity);
+            m_rigid.velocity = newVelocity;
+            yield return new WaitForSeconds(m_dashDuration / 60f);
+        }        
+
+        m_dashEffect.emitting = false;
+        
+
+        yield return null;
     }
 
     public void Jump()
