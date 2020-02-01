@@ -22,4 +22,17 @@ namespace Repair.Infrastructures.Events
             Types = types;
         }
     }
+
+    public class IntEvent : IEvent
+    {
+        public int Value
+        {
+            get;
+        }
+
+        public IntEvent(int value)
+        {
+            Value = value;
+        }
+    }
 }
