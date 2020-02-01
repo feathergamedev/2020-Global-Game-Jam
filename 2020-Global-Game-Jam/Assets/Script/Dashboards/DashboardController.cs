@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Repair.Dashboard.Events;
+using Repair.Dashboards.Helpers;
 using Repair.Infrastructures.Events;
 using UnityEngine;
 
-namespace Dashboards
+namespace Repair.Dashboards
 {
     public class DashboardController : MonoBehaviour
     {
@@ -23,6 +25,7 @@ namespace Dashboards
 
         private void Awake()
         {
+            RotationHelper.I.Initialize();
             m_nerves = m_nervesContainer.GetComponentsInChildren<NervesController>();
             m_actions = m_actionContainer.GetComponentsInChildren<ActionController>();
             m_keys = m_keyContainer.GetComponentsInChildren<KeyController>();
@@ -41,6 +44,16 @@ namespace Dashboards
                 m_pressedKeyCodes.Remove(KeyCode.X);
             }
 
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                m_pressedKeyCodes.Remove(KeyCode.R);
+            }
+
+            if (Input.GetKeyUp(KeyCode.T))
+            {
+                m_pressedKeyCodes.Remove(KeyCode.T);
+            }
+
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 m_pressedKeyCodes.Add(KeyCode.Z);
@@ -49,6 +62,16 @@ namespace Dashboards
             if (Input.GetKeyDown(KeyCode.X))
             {
                 m_pressedKeyCodes.Add(KeyCode.X);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                m_pressedKeyCodes.Add(KeyCode.R);
+            }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                m_pressedKeyCodes.Add(KeyCode.T);
             }
 
             foreach (var keyController in m_keys)
@@ -60,6 +83,23 @@ namespace Dashboards
             foreach (var cell in m_actions.Where(e => e.IsPowerUp))
             {
                 action |= cell.ActionType;
+            }
+
+            if (m_pressedKeyCodes.Contains(KeyCode.R) && m_pressedKeyCodes.Contains(KeyCode.T))
+            {
+                EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.None));
+            }
+            else if (m_pressedKeyCodes.Contains(KeyCode.R))
+            {
+                EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.Left));
+            }
+            else if (m_pressedKeyCodes.Contains(KeyCode.T))
+            {
+                EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.Right));
+            }
+            else
+            {
+                EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.None));
             }
 
             EventEmitter.Emit(GameEvent.Action, new ActionEvent(action));
