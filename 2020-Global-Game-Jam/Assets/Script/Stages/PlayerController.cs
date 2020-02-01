@@ -50,11 +50,28 @@ public class PlayerController : MonoBehaviour
     {
         m_initMoveSpeed = m_moveSpeed;
 
-        /*
+        
         EventEmitter.Add(GameEvent.Action, (value) =>
         {
+            var e = (value as ActionEvent).Value;
+            
+            if ((e & ActionType.Jump) == ActionType.Jump)
+            {
+                Jump();
+            }
 
+            if ((e & ActionType.Left) == ActionType.Left)
+            {
+                MoveLeft();
+            }
+
+            if ((e & ActionType.Right) == ActionType.Right)
+            {
+                MoveRight();
+            }
         });
+
+        /*
 
         MoveLeft();
         MoveRight();
