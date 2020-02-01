@@ -49,11 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rigid = GetComponent<Rigidbody2D>();
         m_renderer = GetComponent<SpriteRenderer>();
-            
-    }
 
-    private void OnEnable()
-    {
         EventEmitter.Add(GameEvent.Action, (value) =>
         {
             RegisterInputEvent((value as ActionEvent).Value);
@@ -66,7 +62,7 @@ public class PlayerController : MonoBehaviour
         m_initMoveSpeed = m_moveSpeed;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         EventEmitter.Remove(GameEvent.Action, (value) =>
         {
@@ -79,6 +75,8 @@ public class PlayerController : MonoBehaviour
     {
 
         m_isOnGround = GroundCheck();
+
+        #region CheatInput
 
         if (m_isOnGround)
         {
@@ -113,6 +111,8 @@ public class PlayerController : MonoBehaviour
         {
             m_moveSpeed = m_initMoveSpeed;
         }
+
+        #endregion
     }
 
     private void RegisterInputEvent(ActionType e)

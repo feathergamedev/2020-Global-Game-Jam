@@ -1076,7 +1076,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 6200000, guid: bc2ba91fb86d54ee4a5858c5364e33ec, type: 2}
+  m_Material: {fileID: 6200000, guid: db3e77bf13598427284407bdc681d38c, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1090,7 +1090,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6925409916132469950}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: db3e77bf13598427284407bdc681d38c, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1123,12 +1123,13 @@ MonoBehaviour:
   m_isFacingRight: 0
   m_moveSpeed: 3
   m_jumpForce: 13
-  m_dashEffect: {fileID: 4498717113576768248}
+  m_sprintEffect: {fileID: 0}
   m_groundDetectTransform: {fileID: 6925409914861097291}
   m_layerGround:
     serializedVersion: 2
     m_Bits: 256
-  m_dashForce: {x: 0, y: 0}
-  m_dashDuration: 0
+  m_sprintForce: {x: 0, y: 0}
+  m_sprintDuration: 0
   m_rigid: {fileID: 6925409916132469946}
   m_renderer: {fileID: 6925409916132469949}
+  Temp_camera: {fileID: 0}
