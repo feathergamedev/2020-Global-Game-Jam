@@ -25,19 +25,44 @@ namespace Repair.Infrastructures.Managers
         {
             LoadStage();
             LoadDashboard();
+            RegisterEvent();
+        }
 
+        private void Start()
+        {
+            NotifyGameStart();
+        }
+
+        private void OnDestroy()
+        {
+            UnregisterEvent();
+        }
+
+        private void RegisterEvent()
+        {
             EventEmitter.Add(GameEvent.Complete, OnComplete);
             EventEmitter.Add(GameEvent.Restart, OnRestart);
+        }
 
-            void OnComplete(IEvent @event)
-            {
-                HandleOnComplete();
-            }
+        private void UnregisterEvent()
+        {
+            EventEmitter.Remove(GameEvent.Complete, OnComplete);
+            EventEmitter.Remove(GameEvent.Restart, OnRestart);
+        }
 
-            void OnRestart(IEvent @event)
-            {
-                HandleOnRestart();
-            }
+        private void NotifyGameStart()
+        {
+            EventEmitter.Emit(GameEvent.GameStart, null);
+        }
+
+        private void OnComplete(IEvent @event)
+        {
+            HandleOnComplete();
+        }
+
+        private void OnRestart(IEvent @event)
+        {
+            HandleOnRestart();
         }
 
         private void LoadStage()
@@ -69,8 +94,6 @@ namespace Repair.Infrastructures.Managers
 
         private void HandleOnRestart()
         {
-            currentStage = 0;
-
             ReloadScene();
         }
 
