@@ -7,7 +7,6 @@ namespace Dashboards
 {
     public class DashboardController : MonoBehaviour
     {
-
         [SerializeField]
         private List<NervesController> m_nerves;
 
@@ -20,13 +19,6 @@ namespace Dashboards
         private HashSet<KeyCode> m_pressedKeyCodes = new HashSet<KeyCode>();
 
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         void Update()
         {
 
@@ -55,8 +47,13 @@ namespace Dashboards
                 keyController.Trigger(m_pressedKeyCodes);
             }
 
-            EventEmitter.Emit(GameEvent.Action,
-                new ListEvent(m_actions.Where(e => e.IsPowerUp).Select(e => e.ActionType)));
+            var action = ActionType.None;
+            foreach (var cell in m_actions.Where(e => e.IsPowerUp))
+            {
+                action |= cell.ActionType;
+            }
+
+            EventEmitter.Emit(GameEvent.Action, new ActionEvent(action));
         }
     }
 }
