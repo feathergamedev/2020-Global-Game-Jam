@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private SpriteRenderer m_renderer;
 
+    [SerializeField]
+    private Rigidbody2D Temp_camera;
+
     // Start is called before the first frame update
     void Start()
     {
