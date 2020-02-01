@@ -33,25 +33,21 @@ namespace Dashboards
             if (Input.GetKeyUp(KeyCode.Z))
             {
                 m_pressedKeyCodes.Remove(KeyCode.Z);
-                Debug.Log("z up");
             }
 
             if (Input.GetKeyUp(KeyCode.X))
             {
                 m_pressedKeyCodes.Remove(KeyCode.X);
-                Debug.Log("x up");
             }
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
                 m_pressedKeyCodes.Add(KeyCode.Z);
-                Debug.Log("z was pressed");
             }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
                 m_pressedKeyCodes.Add(KeyCode.X);
-                Debug.Log("x was pressed");
             }
 
             foreach (var keyController in m_keyControllers)
