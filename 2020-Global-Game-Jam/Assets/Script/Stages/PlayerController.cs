@@ -16,7 +16,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float m_moveSpeed;
 
-    private float m_initMoveSpeed;
+    [SerializeField]
+    private float m_sprintSpeedMultiplier;
+
+    private float m_initMoveSpeed;    
 
     [SerializeField]
     private float m_jumpForce;
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("Removed!");
         EventEmitter.Remove(GameEvent.Action, (value) =>
         {
             RegisterInputEvent((value as ActionEvent).Value);
@@ -100,6 +104,18 @@ public class PlayerController : MonoBehaviour
             StopWalking();
         }
 
+        if ((e & ActionType.Sprint) == ActionType.Sprint)
+        {
+            SpeedUp();
+            m_catAnimator.SetBool("Dash", true);
+        }
+        else
+        {
+            BackToNormalSpeed();
+            m_catAnimator.SetBool("Dash", false);
+        }
+
+
         if ((e & ActionType.Hit) == ActionType.Hit)
         {
             RequestAttack();
@@ -115,6 +131,7 @@ public class PlayerController : MonoBehaviour
     public void StopWalking()
     {
         m_rigid.velocity -= new Vector2(m_rigid.velocity.x, 0);
+        m_catAnimator.SetBool("Walk", false);
     }
 
     public void MoveLeft()
@@ -149,6 +166,16 @@ public class PlayerController : MonoBehaviour
         m_rigid.velocity = new Vector2(m_moveSpeed, curVelocityY);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         m_isFacingRight = true;
+    }
+
+    public void SpeedUp()
+    {
+        m_moveSpeed = m_initMoveSpeed * m_sprintSpeedMultiplier;
+    }
+
+    public void BackToNormalSpeed()
+    {
+        m_moveSpeed = m_initMoveSpeed;
     }
 
     public void Sprint()
