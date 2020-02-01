@@ -52,41 +52,26 @@ public class PlayerController : MonoBehaviour
             
     }
 
+    private void OnEnable()
+    {
+        EventEmitter.Add(GameEvent.Action, (value) =>
+        {
+            RegisterInputEvent((value as ActionEvent).Value);
+        });
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         m_initMoveSpeed = m_moveSpeed;
+    }
 
-        
-        EventEmitter.Add(GameEvent.Action, (value) =>
+    private void OnDisable()
+    {
+        EventEmitter.Remove(GameEvent.Action, (value) =>
         {
-            var e = (value as ActionEvent).Value;
-            
-            if ((e & ActionType.Jump) == ActionType.Jump)
-            {
-                Jump();
-            }
-
-            if ((e & ActionType.Left) == ActionType.Left)
-            {
-                MoveLeft();
-            }
-            else if ((e & ActionType.Right) == ActionType.Right)
-            {
-                MoveRight();
-            }
-            else
-            {
-//                Stop();
-            }
+            RegisterInputEvent((value as ActionEvent).Value);
         });
-
-        /*
-
-        MoveLeft();
-        MoveRight();
-        Jump();
-        */
     }
 
     // Update is called once per frame
@@ -130,6 +115,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void RegisterInputEvent(ActionType e)
+    {
+        if ((e & ActionType.Jump) == ActionType.Jump)
+        {
+            Jump();
+        }
+
+        if ((e & ActionType.Left) == ActionType.Left)
+        {
+            MoveLeft();
+        }
+
+        if ((e & ActionType.Right) == ActionType.Right)
+        {
+            MoveRight();
+        }
+    }
+
     private bool GroundCheck()
     {
         var DetectSize = m_groundDetectTransform.localScale;
@@ -143,16 +146,32 @@ public class PlayerController : MonoBehaviour
 
     public void MoveLeft()
     {
-        m_rigid.velocity = new Vector2(-m_moveSpeed, m_rigid.velocity.y);
+        //Fix: Stange Bug
+        if (m_rigid == null)
+        {
+            Debug.LogFormat("not found.");
+            return;
+        }
+
+        var curVelocityY = m_rigid.velocity.y;
+        m_rigid.velocity = new Vector2(-m_moveSpeed, curVelocityY);
+        transform.rotation = Quaternion.Euler(0, 180, 0);
         m_isFacingRight = false;
-        m_renderer.flipX = true;
     }
 
     public void MoveRight()
     {
-        m_rigid.velocity = new Vector2(m_moveSpeed, m_rigid.velocity.y);
+        //Fix: Stange Bug
+        if (m_rigid == null)
+        {
+            Debug.LogFormat("not found.");
+            return;
+        }
+
+        var curVelocityY = m_rigid.velocity.y;
+        m_rigid.velocity = new Vector2(m_moveSpeed, curVelocityY);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         m_isFacingRight = true;
-        m_renderer.flipX = false;
     }
 
     public void Sprint()

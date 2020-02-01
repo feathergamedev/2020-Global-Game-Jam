@@ -331,14 +331,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isOnGround: 0
+  m_isFacingRight: 0
   m_moveSpeed: 3
   m_jumpForce: 13
-  m_dashEffect: {fileID: 592421971}
+  m_sprintEffect: {fileID: 0}
   m_groundDetectTransform: {fileID: 6806443997854889952}
-  m_groundDetectSize: {x: 0.9, y: 0.05}
   m_layerGround:
     serializedVersion: 2
     m_Bits: 256
-  m_dashSpeedUpRate: 2
+  m_sprintForce: {x: 0, y: 0}
+  m_sprintDuration: 0
   m_rigid: {fileID: 6806443999402019345}
   m_renderer: {fileID: 6806443999402019350}
+  Temp_camera: {fileID: 0}
