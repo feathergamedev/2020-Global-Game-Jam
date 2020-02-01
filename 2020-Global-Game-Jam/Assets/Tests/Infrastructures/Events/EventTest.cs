@@ -16,28 +16,30 @@ namespace Repair.Tests
         public void TestEmitNull()
         {
             var success = false;
-            Action<object> action = (obj) =>
-            {
-                success = true;
-            };
 
-            EventEmitter.Add("test", action);
+            EventEmitter.Add("test", Action1);
             EventEmitter.Emit("test");
             Assert.IsTrue(success);
+
+            void Action1(object val)
+            {
+                success = true;
+            }
         }
 
         [Test]
         public void TestEmitInt()
         {
             var value = 0;
-            Action<object> action = (val) =>
-            {
-                value = (int) val;
-            };
 
-            EventEmitter.Add("test", action);
+            EventEmitter.Add("test", Action1);
             EventEmitter.Emit("test", 1);
             Assert.AreEqual(expected: 1, actual: value);
+
+            void Action1(object val)
+            {
+                value = (int)val;
+            }
         }
 
         [Test]
@@ -45,21 +47,22 @@ namespace Repair.Tests
         {
             var value1 = 0;
             var value2 = 0;
-            Action<object> action1 = (val) =>
-            {
-                value1 = (int)val;
-            };
 
-            Action<object> action2 = (val) =>
-            {
-                value2 = (int)val;
-            };
-
-            EventEmitter.Add("test", action1);
-            EventEmitter.Add("test", action2);
+            EventEmitter.Add("test", Action1);
+            EventEmitter.Add("test", Action2);
             EventEmitter.Emit("test", 1);
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 1, actual: value2);
+
+            void Action1(object val)
+            {
+                value1 = (int)val;
+            }
+
+            void Action2(object val)
+            {
+                value2 = (int)val;
+            }
         }
 
         [Test]
@@ -67,22 +70,23 @@ namespace Repair.Tests
         {
             var value1 = 0;
             var value2 = 0;
-            Action<object> action1 = (val) =>
-            {
-                value1 = (int)val;
-            };
 
-            Action<object> action2 = (val) =>
-            {
-                value2 = (int)val;
-            };
-
-            EventEmitter.Add("test", action1);
-            EventEmitter.Add("test", action2);
-            EventEmitter.Remove("test", action2);
+            EventEmitter.Add("test", Action1);
+            EventEmitter.Add("test", Action2);
+            EventEmitter.Remove("test", Action2);
             EventEmitter.Emit("test", 1);
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 0, actual: value2);
+
+            void Action1(object val)
+            {
+                value1 = (int)val;
+            }
+
+            void Action2(object val)
+            {
+                value2 = (int)val;
+            }
         }
 
         [Test]
@@ -91,21 +95,22 @@ namespace Repair.Tests
             var value = 0;
             var value1 = 0;
             var value2 = 0;
-            Action<object> action1 = (val) =>
-            {
-                value1 = ++value;
-            };
 
-            Action<object> action2 = (val) =>
-            {
-                value2 = ++value;
-            };
-
-            EventEmitter.Add("test", action1);
-            EventEmitter.Add("test", action2);
+            EventEmitter.Add("test", Action1);
+            EventEmitter.Add("test", Action2);
             EventEmitter.Emit("test");
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 2, actual: value2);
+
+            void Action1(object val)
+            {
+                value1 = ++value;
+            }
+
+            void Action2(object val)
+            {
+                value2 = ++value;
+            }
         }
     }
 }
