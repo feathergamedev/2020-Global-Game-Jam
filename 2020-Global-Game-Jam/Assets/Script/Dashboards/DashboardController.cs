@@ -76,7 +76,12 @@ namespace Repair.Dashboards
 
             foreach (var keyController in m_keys)
             {
-                keyController.Trigger(m_pressedKeyCodes);
+                keyController.Clear();
+            }
+
+            foreach (var keyController in m_keys.Where(e => m_pressedKeyCodes.Contains(e.KeyCode)))
+            {
+                keyController.Trigger();
             }
 
             var action = ActionType.None;
