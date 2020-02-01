@@ -72,51 +72,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         m_isOnGround = GroundCheck();
-
-        #region CheatInput
 
         if (m_isOnGround)
         {
-            m_rigid.velocity = new Vector2(m_rigid.velocity.x, 0);
-        }   
-
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            MoveRight();
+            m_rigid.velocity -= new Vector2(0, m_rigid.velocity.y);
         }
-        else if (Input.GetAxis("Horizontal") < 0)
-        {
-            MoveLeft();
-        }
-
-        if (Input.GetButtonUp("Horizontal"))
-        {
-            m_rigid.velocity = new Vector2(0, m_rigid.velocity.y);
-        }
-
-        if (Input.GetButton("Jump"))
-        {
-            Jump();
-            m_isOnGround = false;
-        }
-
-        if (Input.GetButtonDown("Sprint"))
-        {
-            Sprint();
-        }
-        else if (Input.GetButtonUp("Sprint"))
-        {
-            m_moveSpeed = m_initMoveSpeed;
-        }
-
-        if (Input.GetButtonDown("Attack"))
-        {
-            RequestAttack();
-        }
-
-        #endregion
     }
 
     private void RegisterInputEvent(ActionType e)
@@ -130,10 +91,18 @@ public class PlayerController : MonoBehaviour
         {
             MoveLeft();
         }
-
-        if ((e & ActionType.Right) == ActionType.Right)
+        else  if ((e & ActionType.Right) == ActionType.Right)
         {
             MoveRight();
+        }
+        else
+        {
+            StopWalking();
+        }
+
+        if ((e & ActionType.Hit) == ActionType.Hit)
+        {
+            RequestAttack();
         }
     }
 
@@ -143,9 +112,9 @@ public class PlayerController : MonoBehaviour
         return Physics2D.OverlapBox(m_groundDetectTransform.position, DetectSize, 0, m_layerGround);
     }
 
-    public void Stop()
+    public void StopWalking()
     {
-        m_rigid.velocity = Vector2.zero;
+        m_rigid.velocity -= new Vector2(m_rigid.velocity.x, 0);
     }
 
     public void MoveLeft()
