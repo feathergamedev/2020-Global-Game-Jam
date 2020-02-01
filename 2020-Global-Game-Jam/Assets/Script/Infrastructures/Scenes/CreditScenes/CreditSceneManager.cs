@@ -1,11 +1,12 @@
-﻿using Repair.Infrastructures.Events;
+﻿using Repair.Infrastructures.Core;
+using Repair.Infrastructures.Events;
 using Repair.Infrastructures.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Repair.Infrastructures.Managers
+namespace Repair.Infrastructures.Scenes.CreditScenes
 {
-    public class HomeSceneManager : MonoBehaviour
+    public class CreditSceneManager : MonoBehaviour
     {
         private void Awake()
         {
@@ -21,7 +22,7 @@ namespace Repair.Infrastructures.Managers
         {
             if (Input.GetKeyUp(KeyCode.S))
             {
-                SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
+                SceneManager.LoadScene(ProjectInfo.SceneInfos.Home.BuildIndex);
             }
         }
     }

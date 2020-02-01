@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using Repair.Infrastructures.Core;
 using Repair.Infrastructures.Events;
-using Repair.Infrastructures.Managers.Helpers;
 using Repair.Infrastructures.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Repair.Infrastructures.Managers
+namespace Repair.Infrastructures.Scenes.MainScenes
 {
-    public class GameManager : MonoBehaviour
+    public class MainSceneManager : MonoBehaviour
     {
         [SerializeField]
         private List<GameObject> stagePrefabs;
@@ -93,8 +93,14 @@ namespace Repair.Infrastructures.Managers
         private void HandleOnComplete()
         {
             var currentStage = ProgressHelper.I.NextStage();
-
-            ReloadScene();
+            if (currentStage == 0)
+            {
+                ShowCredit();
+            }
+            else
+            {
+                ReloadScene();
+            }
         }
 
         private void HandleOnRestart()
@@ -105,6 +111,11 @@ namespace Repair.Infrastructures.Managers
         private void ReloadScene()
         {
             SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
+        }
+
+        private void ShowCredit()
+        {
+            SceneManager.LoadScene(ProjectInfo.SceneInfos.Credit.BuildIndex);
         }
 
         private void Update()
