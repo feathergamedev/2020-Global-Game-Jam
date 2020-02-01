@@ -1,4 +1,5 @@
-﻿using Repair.Dashboard.Events;
+﻿using System;
+using Repair.Dashboard.Events;
 using Repair.Dashboards.Helpers;
 using Repair.Infrastructures.Events;
 using UnityEngine;
@@ -10,9 +11,8 @@ namespace Repair.Dashboards
         private Vector3 m_screenPoint;
         private Vector3 m_offset;
         private bool m_isDragging;
-        private float z;
-
-
+        private float m_z, m_rotationSpeed;
+        private RotationStatus m_rotationStatus = RotationStatus.None;
 
         void OnMouseDown()
         {
@@ -44,15 +44,45 @@ namespace Repair.Dashboards
         {
             if (m_isDragging && RotationHelper.I.RotationStatus != RotationStatus.None)
             {
-
-                z += Time.deltaTime * RotationHelper.I.RotationSpeed;
-
-                if (z > 360.0f)
+                if (m_rotationStatus != RotationHelper.I.RotationStatus)
                 {
-                    z = 0.0f;
+                    m_rotationStatus = RotationHelper.I.RotationStatus;
+                    m_rotationSpeed = RotationHelper.I.RotationStatus == RotationStatus.Left ? RotationHelper.MIN_SPEED : -RotationHelper.MIN_SPEED;
                 }
 
-                transform.localRotation = Quaternion.Euler(0, 0, z);
+                if (RotationHelper.I.RotationStatus == RotationStatus.Left && m_rotationSpeed >= RotationHelper.MAX_SPEED)
+                {
+                    m_rotationSpeed = RotationHelper.MAX_SPEED;
+                }
+                else if (RotationHelper.I.RotationStatus == RotationStatus.Right && m_rotationSpeed <= -RotationHelper.MAX_SPEED)
+                {
+                    m_rotationSpeed = -RotationHelper.MAX_SPEED;
+                }
+                else
+                {
+                    if (RotationHelper.I.RotationStatus == RotationStatus.Left)
+                    {
+                        m_rotationSpeed += RotationHelper.INTERVAL_SPEED;
+                    }
+                    else
+                    {
+                        m_rotationSpeed -= RotationHelper.INTERVAL_SPEED;
+                    }
+                }
+
+                m_z += Time.deltaTime * m_rotationSpeed;
+
+                if (m_z > 360.0f)
+                {
+                    m_z = 0.0f;
+                }
+
+                transform.localRotation = Quaternion.Euler(0, 0, m_z);
+            }
+            else
+            {
+                m_rotationStatus = RotationStatus.None;
+                m_rotationSpeed = 0;
             }
         }
 

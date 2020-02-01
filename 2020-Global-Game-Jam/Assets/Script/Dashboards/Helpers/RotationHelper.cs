@@ -1,7 +1,6 @@
 ﻿using Repair.Dashboard.Events;
 using Repair.Infrastructures.Core;
 using Repair.Infrastructures.Events;
-using UnityEngine;
 
 namespace Repair.Dashboards.Helpers
 {
@@ -10,15 +9,9 @@ namespace Repair.Dashboards.Helpers
         private RotationStatus m_rotationStatus;
         public RotationStatus RotationStatus => m_rotationStatus;
 
-
-        private const float BASE_SPEED = 90.0f;
-        public float RotationSpeed
-        {
-            get
-            {
-                return RotationStatus == RotationStatus.Left ? BASE_SPEED : -BASE_SPEED;
-            }
-        }
+        public const float MAX_SPEED = 350f;
+        public const float MIN_SPEED = 30f;
+        public const float INTERVAL_SPEED = 15f;
 
         public void Initialize()
         {
