@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Repair.Infrastructures.Events;
+using Repair.Infrastructures.Settings;
 
 public class PlayerController : MonoBehaviour
 {
@@ -92,7 +93,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         m_isOnGround = GroundCheck();
 
         if (m_isOnGround)
@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour
 
     public void MoveLeft()
     {
+        Debug.Log("MoveLeft");
         m_rigid.velocity = new Vector2(-m_moveSpeed, m_rigid.velocity.y);
         m_isFacingRight = false;
         m_renderer.flipX = true;
@@ -150,6 +151,7 @@ public class PlayerController : MonoBehaviour
 
     public void MoveRight()
     {
+        Debug.Log("MoveRight");
         m_rigid.velocity = new Vector2(m_moveSpeed, m_rigid.velocity.y);
         m_isFacingRight = true;
         m_renderer.flipX = false;
