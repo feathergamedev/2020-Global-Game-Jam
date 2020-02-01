@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Repair.Infrastructures.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,6 +46,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         m_initMoveSpeed = m_moveSpeed;
+
+        /*
+        EventEmitter.Add(GameEvent.Action, (value) =>
+        {
+
+        });
+
+        MoveLeft();
+        MoveRight();
+        Jump();
+        */
     }
 
     // Update is called once per frame
