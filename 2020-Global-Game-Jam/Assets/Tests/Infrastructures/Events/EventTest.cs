@@ -5,6 +5,19 @@ namespace Repair.Tests
 {
     public class EventTest
     {
+        private class IntEvent : IEvent
+        {
+            public int Value
+            {
+                get;
+            }
+
+            public IntEvent(int value)
+            {
+                Value = value;
+            }
+        }
+
         [SetUp]
         public void TestSetUp()
         {
@@ -20,7 +33,7 @@ namespace Repair.Tests
             EventEmitter.Emit(GameEvent.None);
             Assert.IsTrue(success);
 
-            void Action1(object val)
+            void Action1(IEvent val)
             {
                 success = true;
             }
@@ -32,12 +45,12 @@ namespace Repair.Tests
             var value = 0;
 
             EventEmitter.Add(GameEvent.None, Action1);
-            EventEmitter.Emit(GameEvent.None, 1);
+            EventEmitter.Emit(GameEvent.None, new IntEvent(1));
             Assert.AreEqual(expected: 1, actual: value);
 
-            void Action1(object val)
+            void Action1(IEvent @event)
             {
-                value = (int)val;
+                value = (@event as IntEvent).Value;
             }
         }
 
@@ -49,18 +62,18 @@ namespace Repair.Tests
 
             EventEmitter.Add(GameEvent.None, Action1);
             EventEmitter.Add(GameEvent.None, Action2);
-            EventEmitter.Emit(GameEvent.None, 1);
+            EventEmitter.Emit(GameEvent.None, new IntEvent(1));
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 1, actual: value2);
 
-            void Action1(object val)
+            void Action1(IEvent @event)
             {
-                value1 = (int)val;
+                value1 = (@event as IntEvent).Value;
             }
 
-            void Action2(object val)
+            void Action2(IEvent @event)
             {
-                value2 = (int)val;
+                value2 = (@event as IntEvent).Value;
             }
         }
 
@@ -73,18 +86,18 @@ namespace Repair.Tests
             EventEmitter.Add(GameEvent.None, Action1);
             EventEmitter.Add(GameEvent.None, Action2);
             EventEmitter.Remove(GameEvent.None, Action2);
-            EventEmitter.Emit(GameEvent.None, 1);
+            EventEmitter.Emit(GameEvent.None, new IntEvent(1));
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 0, actual: value2);
 
-            void Action1(object val)
+            void Action1(IEvent @event)
             {
-                value1 = (int)val;
+                value1 = (@event as IntEvent).Value;
             }
 
-            void Action2(object val)
+            void Action2(IEvent @event)
             {
-                value2 = (int)val;
+                value2 = (@event as IntEvent).Value;
             }
         }
 
@@ -101,12 +114,12 @@ namespace Repair.Tests
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 2, actual: value2);
 
-            void Action1(object val)
+            void Action1(IEvent @event)
             {
                 value1 = ++value;
             }
 
-            void Action2(object val)
+            void Action2(IEvent @event)
             {
                 value2 = ++value;
             }
