@@ -6,14 +6,14 @@ namespace Repair.Infrastructures.Events
 {
     public static class EventEmitter
     {
-        private static Dictionary<string, List<Action<object>>> listeners = new Dictionary<string, List<Action<object>>>();
+        private static Dictionary<GameEvent, List<Action<object>>> listeners = new Dictionary<GameEvent, List<Action<object>>>();
 
         public static void Reset()
         {
             listeners.Clear();
         }
 
-        public static void Add(string eventName, Action<object> action)
+        public static void Add(GameEvent eventName, Action<object> action)
         {
             if (listeners.ContainsKey(eventName))
             {
@@ -28,7 +28,7 @@ namespace Repair.Infrastructures.Events
             } 
         } 
 
-        public static void Remove(string eventName, Action<object> action)
+        public static void Remove(GameEvent eventName, Action<object> action)
         {
             if (listeners.ContainsKey(eventName))
             {
@@ -40,7 +40,7 @@ namespace Repair.Infrastructures.Events
             }
         }
 
-        public static void Emit(string eventName, object eventParams = null)
+        public static void Emit(GameEvent eventName, object eventParams = null)
         {
             if (listeners.ContainsKey(eventName))
             {

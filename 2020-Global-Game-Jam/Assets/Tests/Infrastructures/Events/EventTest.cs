@@ -16,8 +16,8 @@ namespace Repair.Tests
         {
             var success = false;
 
-            EventEmitter.Add("test", Action1);
-            EventEmitter.Emit("test");
+            EventEmitter.Add(GameEvent.None, Action1);
+            EventEmitter.Emit(GameEvent.None);
             Assert.IsTrue(success);
 
             void Action1(object val)
@@ -31,8 +31,8 @@ namespace Repair.Tests
         {
             var value = 0;
 
-            EventEmitter.Add("test", Action1);
-            EventEmitter.Emit("test", 1);
+            EventEmitter.Add(GameEvent.None, Action1);
+            EventEmitter.Emit(GameEvent.None, 1);
             Assert.AreEqual(expected: 1, actual: value);
 
             void Action1(object val)
@@ -47,9 +47,9 @@ namespace Repair.Tests
             var value1 = 0;
             var value2 = 0;
 
-            EventEmitter.Add("test", Action1);
-            EventEmitter.Add("test", Action2);
-            EventEmitter.Emit("test", 1);
+            EventEmitter.Add(GameEvent.None, Action1);
+            EventEmitter.Add(GameEvent.None, Action2);
+            EventEmitter.Emit(GameEvent.None, 1);
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 1, actual: value2);
 
@@ -70,10 +70,10 @@ namespace Repair.Tests
             var value1 = 0;
             var value2 = 0;
 
-            EventEmitter.Add("test", Action1);
-            EventEmitter.Add("test", Action2);
-            EventEmitter.Remove("test", Action2);
-            EventEmitter.Emit("test", 1);
+            EventEmitter.Add(GameEvent.None, Action1);
+            EventEmitter.Add(GameEvent.None, Action2);
+            EventEmitter.Remove(GameEvent.None, Action2);
+            EventEmitter.Emit(GameEvent.None, 1);
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 0, actual: value2);
 
@@ -95,9 +95,9 @@ namespace Repair.Tests
             var value1 = 0;
             var value2 = 0;
 
-            EventEmitter.Add("test", Action1);
-            EventEmitter.Add("test", Action2);
-            EventEmitter.Emit("test");
+            EventEmitter.Add(GameEvent.None, Action1);
+            EventEmitter.Add(GameEvent.None, Action2);
+            EventEmitter.Emit(GameEvent.None);
             Assert.AreEqual(expected: 1, actual: value1);
             Assert.AreEqual(expected: 2, actual: value2);
 
