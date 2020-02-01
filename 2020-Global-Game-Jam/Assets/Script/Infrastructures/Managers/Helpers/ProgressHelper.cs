@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Repair.Infrastructures.Core;
-using UnityEngine;
+﻿using Repair.Infrastructures.Core;
 
 namespace Repair.Infrastructures.Managers.Helpers
 {
     internal class ProgressHelper : Singleton<ProgressHelper>
     {
-        private const string STAGE = "stage_id";
-
-        private static int maxStage = 0;
+        private int maxStage = 0;
+        private int currentStage = 0;
 
         internal void Initialize(int max)
         {
@@ -18,7 +14,6 @@ namespace Repair.Infrastructures.Managers.Helpers
 
         internal int GetStage()
         {
-            var currentStage = PlayerPrefs.GetInt(STAGE);
             if (currentStage >= maxStage)
             {
                 currentStage = 0;
@@ -29,20 +24,18 @@ namespace Repair.Infrastructures.Managers.Helpers
 
         internal int SetStage(int stage)
         {
-            var currentStage = stage;
+            currentStage = stage;
             if (currentStage >= maxStage)
             {
                 currentStage = 0;
             }
 
-            PlayerPrefs.SetInt(STAGE, currentStage);
             return currentStage;
         }
 
         internal int NextStage()
         {
-            var currentStage = GetStage();
-            return SetStage(++currentStage);
+            return SetStage(currentStage + 1);
         }
     }
 }
