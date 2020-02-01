@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Repair.Infrastructures.Events;
+using Repair.Infrastructures.Managers.Helpers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,15 +15,18 @@ namespace Repair.Infrastructures.Managers
         private Transform stage;
 
         [SerializeField]
-        private GameObject dashboardPrefab;
+        private List<GameObject> dashboardPrefabs;
 
         [SerializeField]
         private Transform dashboard;
 
-        private static int currentStage = 0;
-
         private void Awake()
         {
+            ProgressHelper.I.Initialize(stagePrefabs.Count);
+
+            var currentStage = ProgressHelper.I.GetStage();
+            Debug.Log($"currentStage: {currentStage}");
+
             LoadStage();
             LoadDashboard();
             RegisterEvent();
@@ -67,40 +71,35 @@ namespace Repair.Infrastructures.Managers
 
         private void LoadStage()
         {
-            currentStage = PlayerPrefs.GetInt("Scene");
-            if (currentStage >= stagePrefabs.Count)
-            {
-                currentStage = 0;
-            }
-
+            var currentStage = ProgressHelper.I.GetStage();
             var prefab = stagePrefabs[currentStage];
             Instantiate(prefab, stage);
         }
 
         private void LoadDashboard()
         {
-            Instantiate(dashboardPrefab, dashboard);
+            var currentStage = ProgressHelper.I.GetStage();
+            var prefab = dashboardPrefabs[currentStage];
+            Instantiate(prefab, dashboard);
         }
 
         private void HandleOnComplete()
         {
-            if (++currentStage >= stagePrefabs.Count)
-            {
-                currentStage = 0;
-            }
+            Debug.Log($"HandleOnComplete");
+            var currentStage = ProgressHelper.I.NextStage();
+            Debug.Log($"currentStage: {currentStage}");
 
             ReloadScene();
         }
 
         private void HandleOnRestart()
         {
+            Debug.Log($"HandleOnRestart");
             ReloadScene();
         }
 
         private void ReloadScene()
         {
-            PlayerPrefs.SetInt("Scene", currentStage);
-
             SceneManager.LoadScene("Main");
         }
 
@@ -110,9 +109,14 @@ namespace Repair.Infrastructures.Managers
             {
                 HandleOnComplete();
             }
-            else if (Input.GetKey(KeyCode.B))
+            else if (Input.GetKey(KeyCode.S))
             {
                 HandleOnRestart();
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                ProgressHelper.I.SetStage(0);
+                ReloadScene();
             }
         }
     }
