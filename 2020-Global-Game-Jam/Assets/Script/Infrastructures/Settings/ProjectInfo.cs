@@ -33,7 +33,9 @@ namespace Repair.Infrastructures.Settings
 
         public static class SceneInfos
         {
-            public static readonly SceneInfo Main = new SceneInfo(buildIndex: 0, name: "Main", path: "Assets/Scene/Main.unity", bundleName: "");
+            public static readonly SceneInfo Credit = new SceneInfo(buildIndex: 2, name: "Credit", path: "Assets/Scene/Credit.unity", bundleName: "");
+            public static readonly SceneInfo Home = new SceneInfo(buildIndex: 0, name: "Home", path: "Assets/Scene/Home.unity", bundleName: "");
+            public static readonly SceneInfo Main = new SceneInfo(buildIndex: 1, name: "Main", path: "Assets/Scene/Main.unity", bundleName: "");
 
         }
 
@@ -65,6 +67,8 @@ namespace Repair.Infrastructures.Settings
             public static readonly LayerInfo Water = new LayerInfo(index: 4, name: "Water");
             public static readonly LayerInfo UI = new LayerInfo(index: 5, name: "UI");
             public static readonly LayerInfo Platform = new LayerInfo(index: 8, name: "Platform");
+            public static readonly LayerInfo Player = new LayerInfo(index: 9, name: "Player");
+            public static readonly LayerInfo Mechanic = new LayerInfo(index: 10, name: "Mechanic");
 
         }
 
