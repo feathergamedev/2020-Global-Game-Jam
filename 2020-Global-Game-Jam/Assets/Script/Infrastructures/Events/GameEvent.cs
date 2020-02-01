@@ -35,4 +35,17 @@ namespace Repair.Infrastructures.Events
             Value = value;
         }
     }
+
+    public class ActionEvent : IEvent
+    {
+        public ActionType Value
+        {
+            get;
+        }
+
+        public ActionEvent(ActionType value)
+        {
+            Value = value;
+        }
+    }
 }

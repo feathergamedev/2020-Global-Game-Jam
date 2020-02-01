@@ -47,13 +47,13 @@ namespace Dashboards
                 keyController.Trigger(m_pressedKeyCodes);
             }
 
-            var action = 0;
+            var action = ActionType.None;
             foreach (var cell in m_actions.Where(e => e.IsPowerUp))
             {
-                action |= (int)cell.ActionType;
+                action |= cell.ActionType;
             }
 
-            EventEmitter.Emit(GameEvent.Action, new IntEvent(action));
+            EventEmitter.Emit(GameEvent.Action, new ActionEvent(action));
         }
     }
 }
