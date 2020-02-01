@@ -1,8 +1,7 @@
 ﻿using Repair.Infrastructures.Audios;
-using Repair.Infrastructures.Core;
 using Repair.Infrastructures.Events;
 
-namespace Repair.Infrastructures.Managers
+namespace Repair.Infrastructures.Core
 {
     public class App : Singleton<App>
     {
