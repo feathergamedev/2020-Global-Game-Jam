@@ -5,5 +5,6 @@
         None,
         Restart,
         Complete,
+        Action,
     }
 }
