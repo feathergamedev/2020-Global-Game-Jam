@@ -10,5 +10,6 @@ namespace Repair.Infrastructures.Events
         Right = 2,
         Jump = 4,
         Sprint = 8,
+        Hit = 16,
     }
 }

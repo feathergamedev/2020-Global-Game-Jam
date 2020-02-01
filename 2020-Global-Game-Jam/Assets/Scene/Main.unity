@@ -237,8 +237,9 @@ MonoBehaviour:
   - {fileID: 1811860210144183152, guid: c35e8b0cb0fd84a80a3809226748ce13, type: 3}
   - {fileID: 1811860210144183152, guid: b8642fc93ef034eddab9d5487c471daf, type: 3}
   stage: {fileID: 1605817176}
-  dashboardPrefab: {fileID: 2067026495910628818, guid: 112c253f971fd4ba78dc52186b688fcb,
-    type: 3}
+  dashboardPrefabs:
+  - {fileID: 2067026495910628818, guid: 112c253f971fd4ba78dc52186b688fcb, type: 3}
+  - {fileID: 2067026495910628818, guid: 1f37211e4aaf7449ab49c60546425f7b, type: 3}
   dashboard: {fileID: 1800932709}
 --- !u!4 &645387199
 Transform:

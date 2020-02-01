@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Repair.Infrastructures.Events;
 using UnityEngine;
@@ -8,20 +9,28 @@ namespace Dashboards
     public class DashboardController : MonoBehaviour
     {
         [SerializeField]
-        private List<NervesController> m_nerves;
-
+        private GameObject m_nervesContainer;
         [SerializeField]
-        private List<ActionController> m_actions;
-
+        private GameObject m_actionContainer;
         [SerializeField]
-        private List<KeyController> m_keyControllers;
+        private GameObject m_keyContainer;
+
+        private NervesController[] m_nerves;
+        private ActionController[] m_actions;
+        private KeyController[] m_keys;
 
         private HashSet<KeyCode> m_pressedKeyCodes = new HashSet<KeyCode>();
+
+        private void Awake()
+        {
+            m_nerves = m_nervesContainer.GetComponentsInChildren<NervesController>();
+            m_actions = m_actionContainer.GetComponentsInChildren<ActionController>();
+            m_keys = m_keyContainer.GetComponentsInChildren<KeyController>();
+        }
 
 
         void Update()
         {
-
             if (Input.GetKeyUp(KeyCode.Z))
             {
                 m_pressedKeyCodes.Remove(KeyCode.Z);
@@ -42,7 +51,7 @@ namespace Dashboards
                 m_pressedKeyCodes.Add(KeyCode.X);
             }
 
-            foreach (var keyController in m_keyControllers)
+            foreach (var keyController in m_keys)
             {
                 keyController.Trigger(m_pressedKeyCodes);
             }

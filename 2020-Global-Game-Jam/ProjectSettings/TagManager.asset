@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2081649183
+    locked: 0
+  - name: BgFx
+    uniqueID: 1112290591
+    locked: 0
+  - name: Character
+    uniqueID: 2291335181
+    locked: 0
+  - name: CharacterFx
+    uniqueID: 1333443455
+    locked: 0
+  - name: UI
+    uniqueID: 3140856381
+    locked: 0
+  - name: UIFx
+    uniqueID: 2926623551
+    locked: 0
