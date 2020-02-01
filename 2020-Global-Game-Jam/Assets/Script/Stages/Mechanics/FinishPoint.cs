@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Repair.Infrastructures.Events;
 
 public class FinishPoint : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class FinishPoint : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Level Completed!");
-            // Emit event for complete stage;
+            EventEmitter.Emit(GameEvent.Complete);
         }
     }
 }
