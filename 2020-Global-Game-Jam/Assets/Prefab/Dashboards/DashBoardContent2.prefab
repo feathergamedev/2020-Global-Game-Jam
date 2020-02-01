@@ -771,15 +771,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25409b3b4fc8343afa4d7885c7db59d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nerves: []
-  m_actions:
-  - {fileID: 8088143148884267721}
-  - {fileID: 4180421782439102769}
-  - {fileID: 8114017377014884288}
-  - {fileID: 8467758875648797229}
-  m_keyControllers:
-  - {fileID: 6875933759317201278}
-  - {fileID: 2329920748140072251}
+  m_nervesContainer: {fileID: 2067026494855381604}
+  m_actionContainer: {fileID: 2067026495557252427}
+  m_keyContainer: {fileID: 2067026495143319046}
 --- !u!1 &2542170754354924824
 GameObject:
   m_ObjectHideFlags: 0
