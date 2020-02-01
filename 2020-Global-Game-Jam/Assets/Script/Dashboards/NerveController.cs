@@ -1,12 +1,10 @@
-﻿using System;
-using Repair.Dashboard.Events;
+﻿using Repair.Dashboard.Events;
 using Repair.Dashboards.Helpers;
-using Repair.Infrastructures.Events;
 using UnityEngine;
 
 namespace Repair.Dashboards
 {
-    public class NervesController : BaseCellController
+    public class NerveController : BaseCellController
     {
         private Vector3 m_screenPoint;
         private Vector3 m_offset;
@@ -84,6 +82,12 @@ namespace Repair.Dashboards
                 m_rotationStatus = RotationStatus.None;
                 m_rotationSpeed = 0;
             }
+        }
+
+        public void SetInitRotation(float z)
+        {
+            m_z = z;
+            transform.localRotation = Quaternion.Euler(0, 0, m_z);
         }
 
     }

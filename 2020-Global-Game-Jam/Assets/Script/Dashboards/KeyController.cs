@@ -8,18 +8,21 @@ namespace Repair.Dashboards
         [SerializeField]
         private KeyCode m_keyCode;
 
+        public KeyCode KeyCode => m_keyCode;
 
-        public void Trigger(HashSet<KeyCode> keyCodes)
+        public void Clear()
         {
-            var isKeyPressed = keyCodes.Contains(m_keyCode);
-
+            IsPowerUp = false;
             foreach (var cell in m_closeCell)
             {
                 cell.IsPowerUp = false;
             }
+        }
 
+        public void Trigger()
+        {
             m_closeCell.Clear();
-            CheckLinkedCells(this, isKeyPressed);
+            CheckLinkedCells(this, true);
         }
     }
 }
