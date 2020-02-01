@@ -8,23 +8,20 @@ namespace Dashboards
         [SerializeField]
         private KeyCode m_keyCode;
 
-        private HashSet<BaseCellController> m_openCell = new HashSet<BaseCellController>();
-        private HashSet<BaseCellController> m_closeCell = new HashSet<BaseCellController>();
+        //protected HashSet<BaseCellController> m_closeCell = new HashSet<BaseCellController>();
+
 
         public void Trigger(HashSet<KeyCode> keyCodes)
         {
             var isKeyPressed = keyCodes.Contains(m_keyCode);
-            TriggerPowerUp(isKeyPressed);
 
-            if (!isKeyPressed)
+            foreach (var cell in m_closeCell)
             {
-                return;
+                cell.IsPowerUp = false;
             }
 
-            foreach (var cell in m_linkedCells)
-            {
-
-            }
+            m_closeCell.Clear();
+            CheckLinkedCells(this, isKeyPressed);
         }
     }
 }

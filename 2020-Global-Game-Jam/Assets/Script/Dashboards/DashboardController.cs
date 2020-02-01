@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Repair.Infrastructures.Events;
 using UnityEngine;
@@ -60,7 +59,8 @@ namespace Dashboards
                 keyController.Trigger(m_pressedKeyCodes);
             }
 
-            EventEmitter.Emit(m_actions.Select(action => action.IsPowerUp));
+            EventEmitter.Emit(GameEvent.Action,
+                new ListEvent(m_actions.Where(e => e.IsPowerUp).Select(e => e.ActionType)));
         }
     }
 }

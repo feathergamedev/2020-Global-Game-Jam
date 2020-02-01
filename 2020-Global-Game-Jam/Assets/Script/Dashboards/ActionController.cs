@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Repair.Infrastructures.Events;
+﻿using Repair.Infrastructures.Events;
 using UnityEngine;
 
 namespace Dashboards
@@ -9,5 +7,6 @@ namespace Dashboards
     {
         [SerializeField]
         private ActionType m_actionType;
+        public ActionType ActionType => m_actionType;
     }
 }

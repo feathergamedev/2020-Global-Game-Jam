@@ -9,9 +9,12 @@ namespace Dashboards
         protected Collider2D m_collider;
 
         [SerializeField]
-        protected GameObject m_linkEffect;
+        private GameObject m_linkEffect;
 
-        protected HashSet<BaseCellController> m_linkedCells = new HashSet<BaseCellController>();
+
+        protected HashSet<BaseCellController> m_closeCell = new HashSet<BaseCellController>();
+        private HashSet<BaseCellController> m_linkedCells = new HashSet<BaseCellController>();
+        public HashSet<BaseCellController> LinkedCells => m_linkedCells;
 
         protected bool m_isPowerUp;
         public bool IsPowerUp
@@ -26,12 +29,20 @@ namespace Dashboards
 
         void OnTriggerEnter2D(Collider2D triggerCollider)
         {
-            Debug.Log($"[BaseCellController] OnTriggerEnter2D: {triggerCollider.gameObject.name}");
-
             var cell = triggerCollider.gameObject.GetComponent<BaseCellController>();
+            AddLinkCell(cell);
+        }
+
+        void OnTriggerExit2D(Collider2D triggerCollider)
+        {
+            var cell = triggerCollider.gameObject.GetComponent<BaseCellController>();
+            RemoveLinkCell(cell);
+        }
+
+        protected virtual void AddLinkCell(BaseCellController cell)
+        {
             if (cell == null)
             {
-                Debug.LogError($"[BaseCellController] OnTriggerEnter2D: Can't find BaseCellController in {triggerCollider.gameObject.name}");
                 return;
             }
 
@@ -41,14 +52,10 @@ namespace Dashboards
             }
         }
 
-        void OnTriggerExit2D(Collider2D triggerCollider)
+        protected virtual void RemoveLinkCell(BaseCellController cell)
         {
-            Debug.Log($"[BaseCellController] OnTriggerExit2D: {triggerCollider.gameObject.name}");
-
-            var cell = triggerCollider.gameObject.GetComponent<BaseCellController>();
             if (cell == null)
             {
-                Debug.LogError($"[BaseCellController] OnTriggerExit2D: Can't find BaseCellController in {triggerCollider.gameObject.name}");
                 return;
             }
 
@@ -58,6 +65,20 @@ namespace Dashboards
             }
         }
 
+        protected void CheckLinkedCells(BaseCellController baseCell, bool isPowerUp)
+        {
+            baseCell.IsPowerUp = isPowerUp;
+
+            foreach (var cell in baseCell.LinkedCells)
+            {
+                cell.IsPowerUp = isPowerUp;
+
+                if (m_closeCell.Add(cell))
+                {
+                    CheckLinkedCells(cell, isPowerUp);
+                }
+            }
+        }
 
         public virtual void TriggerPowerUp(bool active)
         {
