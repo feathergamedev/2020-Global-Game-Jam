@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Repair.Infrastructures.Audios;
 using Repair.Infrastructures.Events;
 using Repair.Infrastructures.Managers.Helpers;
 using Repair.Infrastructures.Settings;
@@ -24,8 +23,8 @@ namespace Repair.Infrastructures.Managers
 
         private void Awake()
         {
+            App.I.Initialize();
             ProgressHelper.I.Initialize(stagePrefabs.Count);
-            AudioManager.I.Initialize();
 
             var currentStage = ProgressHelper.I.GetStage();
             Debug.Log($"currentStage: {currentStage}");
@@ -52,16 +51,12 @@ namespace Repair.Infrastructures.Managers
         {
             EventEmitter.Add(GameEvent.Complete, OnComplete);
             EventEmitter.Add(GameEvent.Restart, OnRestart);
-            EventEmitter.Add(GameEvent.PlayMusic, OnPlayMusic);
-            EventEmitter.Add(GameEvent.PlaySound, OnPlaySound);
         }
 
         private void UnregisterEvent()
         {
             EventEmitter.Remove(GameEvent.Complete, OnComplete);
             EventEmitter.Remove(GameEvent.Restart, OnRestart);
-            EventEmitter.Remove(GameEvent.PlayMusic, OnPlayMusic);
-            EventEmitter.Remove(GameEvent.PlaySound, OnPlaySound);
         }
 
         private void NotifyGameStart()
@@ -77,16 +72,6 @@ namespace Repair.Infrastructures.Managers
         private void OnRestart(IEvent @event)
         {
             HandleOnRestart();
-        }
-
-        private void OnPlayMusic(IEvent @event)
-        {
-            HandleOnPlayMusic(@event as MusicEvent);
-        }
-
-        private void OnPlaySound(IEvent @event)
-        {
-            HandleOnPlaySound(@event as SoundEvent);
         }
 
         #endregion
@@ -115,16 +100,6 @@ namespace Repair.Infrastructures.Managers
         private void HandleOnRestart()
         {
             ReloadScene();
-        }
-
-        private void HandleOnPlayMusic(MusicEvent musicEvent)
-        {
-            AudioManager.I.PlayMusic(musicEvent.Value);
-        }
-
-        private void HandleOnPlaySound(SoundEvent soundEvent)
-        {
-            AudioManager.I.PlaySound(soundEvent.Value, soundEvent.Channel);
         }
 
         private void ReloadScene()
