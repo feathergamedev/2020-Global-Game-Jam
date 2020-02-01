@@ -14,7 +14,8 @@ namespace Repair.Infrastructures.Core
             Assert.IsNull(instance);
 
             var go = new GameObject();
-            go.name = nameof(T);
+            go.name = $"(Singleton) {typeof(T).Name}";
+            DontDestroyOnLoad(go);
             instance = go.AddComponent<T>();
 
             return instance;
