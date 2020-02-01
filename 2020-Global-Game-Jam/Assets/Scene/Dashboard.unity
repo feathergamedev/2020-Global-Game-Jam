@@ -277,7 +277,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085835742}
   m_CullTransparentMesh: 0
---- !u!1001 &1590944128
+--- !u!1001 &1127793025
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -394,13 +394,38 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4180421782439102769, guid: 112c253f971fd4ba78dc52186b688fcb,
+        type: 3}
+      propertyPath: m_actionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5150542545519798589, guid: 112c253f971fd4ba78dc52186b688fcb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 137
+      objectReference: {fileID: 0}
+    - target: {fileID: 8088143148884267721, guid: 112c253f971fd4ba78dc52186b688fcb,
+        type: 3}
+      propertyPath: m_actionType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114017377014884288, guid: 112c253f971fd4ba78dc52186b688fcb,
+        type: 3}
+      propertyPath: m_actionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338748933352280562, guid: 112c253f971fd4ba78dc52186b688fcb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -131
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 112c253f971fd4ba78dc52186b688fcb, type: 3}
---- !u!224 &1590944129 stripped
+--- !u!224 &1127793026 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2067026495910628819, guid: 112c253f971fd4ba78dc52186b688fcb,
     type: 3}
-  m_PrefabInstance: {fileID: 1590944128}
+  m_PrefabInstance: {fileID: 1127793025}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1745774492
 GameObject:
@@ -531,7 +556,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1590944129}
+  - {fileID: 1127793026}
   m_Father: {fileID: 1745774496}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

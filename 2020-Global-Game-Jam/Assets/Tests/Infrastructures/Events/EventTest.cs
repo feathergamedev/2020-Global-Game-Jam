@@ -5,6 +5,18 @@ namespace Repair.Tests
 {
     public class EventTest
     {
+        private class IntEvent : IEvent
+        {
+            public int Value
+            {
+                get;
+            }
+
+            public IntEvent(int value)
+            {
+                Value = value;
+            }
+        }
 
         [SetUp]
         public void TestSetUp()

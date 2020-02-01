@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Dashboards
 {
@@ -7,8 +9,21 @@ namespace Dashboards
         private Vector3 m_screenPoint;
         private Vector3 m_offset;
 
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
         void OnMouseDown()
         {
+            //m_closeCell.Clear();
             m_screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
             m_offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenPoint.z));
         }

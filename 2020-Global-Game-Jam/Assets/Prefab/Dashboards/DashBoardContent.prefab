@@ -537,11 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_nerves: []
-  m_actions:
-  - {fileID: 8088143148884267721}
-  - {fileID: 4180421782439102769}
-  - {fileID: 8114017377014884288}
-  - {fileID: 8467758875648797229}
+  m_actions: []
   m_keyControllers:
   - {fileID: 6875933759317201278}
   - {fileID: 2329920748140072251}
@@ -583,7 +579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 92, y: 317}
+  m_AnchoredPosition: {x: 361, y: 323}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1562972948633983678
@@ -662,7 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 0}
   m_linkEffect: {fileID: 1226226205892548873}
-  m_actionType: 2
+  m_actionType: 0
 --- !u!1 &2792615462435547561
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 0}
   m_linkEffect: {fileID: 5480036174585293007}
-  m_actionType: 4
+  m_actionType: 0
 --- !u!1 &4390997611888789950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 283, y: 317}
+  m_AnchoredPosition: {x: 361, y: 323}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5970839060432083270
@@ -1733,7 +1729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 0}
   m_linkEffect: {fileID: 402741477485328704}
-  m_actionType: 8
+  m_actionType: 10
 --- !u!1 &7417595235644618327
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,7 +2096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -119, y: 314}
+  m_AnchoredPosition: {x: 27, y: 314}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5306046012888152099
@@ -2179,7 +2175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_collider: {fileID: 0}
   m_linkEffect: {fileID: 4999147864596867283}
-  m_actionType: 1
+  m_actionType: 0
 --- !u!1 &7930319396001724213
 GameObject:
   m_ObjectHideFlags: 0
