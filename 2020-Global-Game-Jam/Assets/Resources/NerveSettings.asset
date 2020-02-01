@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: NerveSettings
+  m_EditorClassIdentifier: Repair-Dashboards:Repair.Dashboards.Settings:NerveSettings
+  m_nervePrefabs:
+  - {fileID: 7808362095596714135, guid: d757102f67973424192cdc54c89af6bb, type: 3}
+  - {fileID: 6370154402509337179, guid: fd56bd4a30e124aaea5ddef771e1aaf4, type: 3}
+  - {fileID: 495253230691824944, guid: 107f4559c41d64724861c183391d2db1, type: 3}
+  MinInitX: -360
+  MaxInitX: 360
+  InitRotationRange: 360

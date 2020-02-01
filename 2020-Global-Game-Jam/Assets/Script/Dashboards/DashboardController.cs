@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Repair.Dashboard.Events;
 using Repair.Dashboards.Helpers;
+using Repair.Dashboards.Settings;
 using Repair.Infrastructures.Events;
 using UnityEngine;
 
@@ -11,24 +11,38 @@ namespace Repair.Dashboards
     public class DashboardController : MonoBehaviour
     {
         [SerializeField]
-        private GameObject m_nervesContainer;
+        private Transform m_actionContainer;
         [SerializeField]
-        private GameObject m_actionContainer;
+        private Transform m_keyContainer;
         [SerializeField]
-        private GameObject m_keyContainer;
+        private Transform m_nerveContainer;
+        [SerializeField]
+        private NerveSettings m_nerverSettings;
+        [SerializeField]
+        private int m_nerveCount;
 
-        private NervesController[] m_nerves;
         private ActionController[] m_actions;
         private KeyController[] m_keys;
+        private NerveController[] m_nerves;
 
         private HashSet<KeyCode> m_pressedKeyCodes = new HashSet<KeyCode>();
 
         private void Awake()
         {
             RotationHelper.I.Initialize();
-            m_nerves = m_nervesContainer.GetComponentsInChildren<NervesController>();
             m_actions = m_actionContainer.GetComponentsInChildren<ActionController>();
             m_keys = m_keyContainer.GetComponentsInChildren<KeyController>();
+
+            m_nerves = new NerveController[m_nerveCount];
+            for (var i=0; i< m_nerveCount; i++)
+            {
+                var nerve = Instantiate(m_nerverSettings.GetRandomNerve(), m_nerveContainer);
+                nerve.transform.localPosition = new Vector3(
+                    Random.Range(m_nerverSettings.MinInitX, m_nerverSettings.MaxInitX),0, 0);
+
+                nerve.SetInitRotation(Random.Range(0f, m_nerverSettings.InitRotationRange));
+                m_nerves[i] = nerve;
+            }
         }
 
 
