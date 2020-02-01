@@ -45,6 +45,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Rigidbody2D Temp_camera;
 
+    private void Awake()
+    {
+        m_rigid = GetComponent<Rigidbody2D>();
+        m_renderer = GetComponent<SpriteRenderer>();
+            
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,7 +98,7 @@ public class PlayerController : MonoBehaviour
         if (m_isOnGround)
         {
             m_rigid.velocity = new Vector2(m_rigid.velocity.x, 0);
-        }
+        }   
 
         if (Input.GetAxis("Horizontal") > 0)
         {
