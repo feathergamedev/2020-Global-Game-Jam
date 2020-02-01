@@ -53,10 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         m_rigid = GetComponent<Rigidbody2D>();
 
-        EventEmitter.Add(GameEvent.Action, (value) =>
-        {
-            RegisterInputEvent((value as ActionEvent).Value);
-        });
+        EventEmitter.Add(GameEvent.Action, HandleOnAction);
     }
 
     // Start is called before the first frame update
@@ -68,10 +65,7 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         Debug.Log("Removed!");
-        EventEmitter.Remove(GameEvent.Action, (value) =>
-        {
-            RegisterInputEvent((value as ActionEvent).Value);
-        });
+        EventEmitter.Remove(GameEvent.Action, HandleOnAction);
     }
 
     // Update is called once per frame
@@ -83,6 +77,11 @@ public class PlayerController : MonoBehaviour
         {
             m_rigid.velocity -= new Vector2(0, m_rigid.velocity.y);
         }
+    }
+
+    private void HandleOnAction(IEvent @event)
+    {
+        RegisterInputEvent((@event as ActionEvent).Value);
     }
 
     private void RegisterInputEvent(ActionType e)
