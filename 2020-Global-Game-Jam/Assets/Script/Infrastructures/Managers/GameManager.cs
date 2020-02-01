@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Repair.Infrastructures.Audios;
 using Repair.Infrastructures.Events;
 using Repair.Infrastructures.Managers.Helpers;
+using Repair.Infrastructures.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +25,7 @@ namespace Repair.Infrastructures.Managers
         private void Awake()
         {
             ProgressHelper.I.Initialize(stagePrefabs.Count);
+            AudioManager.I.Initialize();
 
             var currentStage = ProgressHelper.I.GetStage();
             Debug.Log($"currentStage: {currentStage}");
@@ -35,6 +38,7 @@ namespace Repair.Infrastructures.Managers
         private void Start()
         {
             NotifyGameStart();
+            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Slug_Love_87));
         }
 
         private void OnDestroy()
@@ -42,16 +46,22 @@ namespace Repair.Infrastructures.Managers
             UnregisterEvent();
         }
 
+        #region Event
+
         private void RegisterEvent()
         {
             EventEmitter.Add(GameEvent.Complete, OnComplete);
             EventEmitter.Add(GameEvent.Restart, OnRestart);
+            EventEmitter.Add(GameEvent.PlayMusic, OnPlayMusic);
+            EventEmitter.Add(GameEvent.PlaySound, OnPlaySound);
         }
 
         private void UnregisterEvent()
         {
             EventEmitter.Remove(GameEvent.Complete, OnComplete);
             EventEmitter.Remove(GameEvent.Restart, OnRestart);
+            EventEmitter.Remove(GameEvent.PlayMusic, OnPlayMusic);
+            EventEmitter.Remove(GameEvent.PlaySound, OnPlaySound);
         }
 
         private void NotifyGameStart()
@@ -69,6 +79,18 @@ namespace Repair.Infrastructures.Managers
             HandleOnRestart();
         }
 
+        private void OnPlayMusic(IEvent @event)
+        {
+            HandleOnPlayMusic(@event as MusicEvent);
+        }
+
+        private void OnPlaySound(IEvent @event)
+        {
+            HandleOnPlaySound(@event as SoundEvent);
+        }
+
+        #endregion
+
         private void LoadStage()
         {
             var currentStage = ProgressHelper.I.GetStage();
@@ -85,39 +107,56 @@ namespace Repair.Infrastructures.Managers
 
         private void HandleOnComplete()
         {
-            Debug.Log($"HandleOnComplete");
             var currentStage = ProgressHelper.I.NextStage();
-            Debug.Log($"currentStage: {currentStage}");
 
             ReloadScene();
         }
 
         private void HandleOnRestart()
         {
-            Debug.Log($"HandleOnRestart");
             ReloadScene();
+        }
+
+        private void HandleOnPlayMusic(MusicEvent musicEvent)
+        {
+            AudioManager.I.PlayMusic(musicEvent.Value);
+        }
+
+        private void HandleOnPlaySound(SoundEvent soundEvent)
+        {
+            AudioManager.I.PlaySound(soundEvent.Value, soundEvent.Channel);
         }
 
         private void ReloadScene()
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKeyUp(KeyCode.A))
             {
                 HandleOnComplete();
             }
-            else if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKeyUp(KeyCode.S))
             {
                 HandleOnRestart();
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKeyUp(KeyCode.D))
             {
                 ProgressHelper.I.SetStage(0);
                 ReloadScene();
             }
+            else if (Input.GetKeyUp(KeyCode.F))
+            {
+                EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Cartoon_Boing, 0));
+            }
+            else if (Input.GetKeyUp(KeyCode.G))
+            {
+                EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Mute));
+            }
+
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Repair.Infrastructures.Settings;
 
 namespace Repair.Infrastructures.Events
 {
@@ -9,6 +10,8 @@ namespace Repair.Infrastructures.Events
         Complete,
         Action,
         GameStart,
+        PlayMusic,
+        PlaySound,
     }
 
     public class ListEvent : IEvent
@@ -47,6 +50,38 @@ namespace Repair.Infrastructures.Events
         public ActionEvent(ActionType value)
         {
             Value = value;
+        }
+    }
+
+    public class MusicEvent : IEvent
+    {
+        public MusicType Value
+        {
+            get;
+        }
+
+        public MusicEvent(MusicType value)
+        {
+            Value = value;
+        }
+    }
+
+    public class SoundEvent : IEvent
+    {
+        public SoundType Value
+        {
+            get;
+        }
+
+        public int Channel
+        {
+            get;
+        }
+
+        public SoundEvent(SoundType value, int channel)
+        {
+            Value = value;
+            Channel = channel;
         }
     }
 }
