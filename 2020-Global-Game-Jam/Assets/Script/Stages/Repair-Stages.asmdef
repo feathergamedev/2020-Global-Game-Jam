@@ -1,14 +1,10 @@
 {
-    "name": "Repair-Editor",
+    "name": "Repair-Stages",
     "references": [
-        "GUID:c891cfe86a8d640deb958ae584a9354f",
-        "GUID:3861a25a502b04cee87b2cd5637af488",
-        "GUID:29c0aa606104249d086fe817bfee1222"
+        "GUID:c891cfe86a8d640deb958ae584a9354f"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [
-        "Editor"
-    ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
