@@ -38,7 +38,7 @@ namespace Repair.Dashboards
         {
             m_closeCell.Clear();
             base.RemoveLinkCell(cell);
-            CheckLinkedCells(this, IsPowerUp);
+            CheckPoweredCells(this, IsPowerUp);
         }
 
         void FixedUpdate()

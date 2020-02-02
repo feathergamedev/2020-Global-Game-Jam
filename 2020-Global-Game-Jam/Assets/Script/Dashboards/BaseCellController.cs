@@ -7,11 +7,24 @@ namespace Repair.Dashboards
     {
         [SerializeField]
         private GameObject m_linkEffect;
-
+        [SerializeField]
+        private GameObject m_powerUpEffect;
 
         protected HashSet<BaseCellController> m_closeCell = new HashSet<BaseCellController>();
         private HashSet<BaseCellController> m_linkedCells = new HashSet<BaseCellController>();
         public HashSet<BaseCellController> LinkedCells => m_linkedCells;
+
+        public int LinkGroup;
+        protected bool m_isLinked;
+        public bool IsLinked
+        {
+            get => m_isLinked;
+            set
+            {
+                m_isLinked = value;
+                TriggerLinked(m_isLinked);
+            }
+        }
 
         protected bool m_isPowerUp;
         public bool IsPowerUp
@@ -21,6 +34,17 @@ namespace Repair.Dashboards
             {
                 m_isPowerUp = value;
                 TriggerPowerUp(m_isPowerUp);
+            }
+        }
+
+        public void Clear()
+        {
+            IsLinked = false;
+            IsPowerUp = false;
+            foreach (var cell in m_closeCell)
+            {
+                cell.IsLinked = false;
+                cell.IsPowerUp = false;
             }
         }
 
@@ -62,7 +86,7 @@ namespace Repair.Dashboards
             }
         }
 
-        protected void CheckLinkedCells(BaseCellController baseCell, bool isPowerUp)
+        protected void CheckPoweredCells(BaseCellController baseCell, bool isPowerUp)
         {
             baseCell.IsPowerUp = isPowerUp;
 
@@ -72,12 +96,12 @@ namespace Repair.Dashboards
 
                 if (m_closeCell.Add(cell))
                 {
-                    CheckLinkedCells(cell, isPowerUp);
+                    CheckPoweredCells(cell, isPowerUp);
                 }
             }
         }
 
-        public virtual void TriggerPowerUp(bool active)
+        public void TriggerLinked(bool active)
         {
             if (m_linkEffect == null)
             {
@@ -85,6 +109,16 @@ namespace Repair.Dashboards
             }
 
             m_linkEffect.SetActive(active);
+        }
+
+        public virtual void TriggerPowerUp(bool active)
+        {
+            if (m_powerUpEffect == null)
+            {
+                return;
+            }
+
+            m_powerUpEffect.SetActive(active);
         }
     }
 }

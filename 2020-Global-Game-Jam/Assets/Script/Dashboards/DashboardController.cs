@@ -27,11 +27,24 @@ namespace Repair.Dashboards
 
         private HashSet<KeyCode> m_pressedKeyCodes = new HashSet<KeyCode>();
 
+
+        private HashSet<BaseCellController> m_closeCells = new HashSet<BaseCellController>();
+        private HashSet<BaseCellController> m_openCells = new HashSet<BaseCellController>();
+        private HashSet<BaseCellController> m_allCells = new HashSet<BaseCellController>();
+
+        private Dictionary<int, HashSet<BaseCellController>> m_linkGroup = new Dictionary<int, HashSet<BaseCellController>>();
+
+
         private void Awake()
         {
             RotationHelper.I.Initialize();
             m_actions = m_actionContainer.GetComponentsInChildren<ActionController>();
             m_keys = m_keyContainer.GetComponentsInChildren<KeyController>();
+
+            foreach (var cell in m_keys)
+            {
+                m_allCells.Add(cell);
+            }
 
             m_nerves = new NerveController[m_nerveCount];
             for (var i = 0; i < m_nerveCount; i++)
@@ -43,8 +56,19 @@ namespace Repair.Dashboards
                 nerve.SetInitRotation(Random.Range(0f, m_nerverSettings.InitRotationRange));
                 m_nerves[i] = nerve;
             }
+
+            foreach (var cell in m_actions)
+            {
+                m_allCells.Add(cell);
+            }
         }
 
+        private void ResetList()
+        {
+            m_openCells = new HashSet<BaseCellController>(m_allCells);
+            m_closeCells.Clear();
+            m_linkGroup.Clear();
+        }
 
         void Update()
         {
@@ -98,14 +122,29 @@ namespace Repair.Dashboards
                 m_pressedKeyCodes.Add(KeyCode.D);
             }
 
+            ResetList();
+
+            foreach (var cell in m_allCells)
+            {
+                cell.Clear();
+            }
+
+            var linkGroup = 0;
             foreach (var keyController in m_keys)
             {
-                keyController.Clear();
+                m_linkGroup.Add(linkGroup, new HashSet<BaseCellController>());
+                CheckLinkedCells(keyController, linkGroup);
+                linkGroup++;
             }
+
+            SetLinkedCells();
 
             foreach (var keyController in m_keys.Where(e => m_pressedKeyCodes.Contains(e.KeyCode)))
             {
-                keyController.Trigger();
+                foreach (var cell in m_linkGroup[keyController.LinkGroup])
+                {
+                    cell.IsPowerUp = true;
+                }
             }
 
             var action = ActionType.None;
@@ -132,6 +171,41 @@ namespace Repair.Dashboards
             }
 
             EventEmitter.Emit(GameEvent.Action, new ActionEvent(action));
+        }
+
+        protected void CheckLinkedCells(BaseCellController baseCell, int group)
+        {
+            if (m_closeCells.Add(baseCell))
+            {
+                baseCell.LinkGroup = group;
+                m_linkGroup[group].Add(baseCell);
+                foreach (var cell in baseCell.LinkedCells)
+                {
+                    CheckLinkedCells(cell, group);
+                }
+            }
+        }
+
+        protected void SetLinkedCells()
+        {
+            foreach (var pair in m_linkGroup)
+            {
+
+                if (pair.Value.Any(e => e is ActionController) && pair.Value.Any(e => e is KeyController))
+                {
+                    foreach (var cells in pair.Value)
+                    {
+                        cells.IsLinked = true;
+                    }
+                }
+                else
+                {
+                    foreach (var cells in pair.Value)
+                    {
+                        cells.IsLinked = false;
+                    }
+                }
+            }
         }
     }
 }

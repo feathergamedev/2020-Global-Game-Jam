@@ -41,19 +41,9 @@ namespace Repair.Dashboards
             gameObject.SetActive(isDragging);
         }
 
-        public void Clear()
-        {
-            IsPowerUp = false;
-            foreach (var cell in m_closeCell)
-            {
-                cell.IsPowerUp = false;
-            }
-        }
-
         public void Trigger()
         {
-            m_closeCell.Clear();
-            CheckLinkedCells(this, true);
+            CheckPoweredCells(this, true);
         }
     }
 }
