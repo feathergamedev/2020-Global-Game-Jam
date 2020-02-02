@@ -132,8 +132,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void RegisterInputEvent(ActionType e)
-    { 
-        if ((e & ActionType.Left) == ActionType.Left)
+    {
+        if ((e & ActionType.Left) == ActionType.Left
+            && (e & ActionType.Right) == ActionType.Right)
+        {
+            Debug.Log("Left and Right at the same time. Do nothing.");
+        }
+        else if ((e & ActionType.Left) == ActionType.Left)
         {
             MoveLeft();
         }
