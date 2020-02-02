@@ -1,7 +1,9 @@
 # Game Title : Brain Repair
 
 Jam Site : III Taipei, Taiwan
+
 Jam Page : https://globalgamejam.org/users/Feather%20Chung/games
+
 Play on Web : https://feather-chung.itch.io/brainrepair
 
 # Credits
