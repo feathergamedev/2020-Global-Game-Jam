@@ -110,7 +110,8 @@ namespace Repair.Infrastructures.Scenes.MainScenes
 
         private void ReloadScene()
         {
-            SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
+            //SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void ShowCredit()
