@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &500317405
+--- !u!1001 &502063778
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -132,11 +132,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DashBoardContent3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2067026495910628818, guid: d23606f1f2c4d4311a0ccf80ae8214ec,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2067026495910628819, guid: d23606f1f2c4d4311a0ccf80ae8214ec,
         type: 3}
@@ -245,6 +240,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d23606f1f2c4d4311a0ccf80ae8214ec, type: 3}
+--- !u!224 &502063779 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2067026495910628819, guid: d23606f1f2c4d4311a0ccf80ae8214ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 502063778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,12 +538,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085835742}
   m_CullTransparentMesh: 0
---- !u!224 &1661943792 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2067026495910628819, guid: d23606f1f2c4d4311a0ccf80ae8214ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 500317405}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1745774492
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +675,7 @@ RectTransform:
   m_Children:
   - {fileID: 704092055}
   - {fileID: 867839830}
-  - {fileID: 1661943792}
+  - {fileID: 502063779}
   - {fileID: 1787733580}
   m_Father: {fileID: 1745774496}
   m_RootOrder: 1

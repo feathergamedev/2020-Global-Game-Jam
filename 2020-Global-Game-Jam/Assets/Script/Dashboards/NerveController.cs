@@ -1,5 +1,6 @@
 ﻿using Repair.Dashboard.Events;
 using Repair.Dashboards.Helpers;
+using Repair.Infrastructures.Events;
 using UnityEngine;
 
 namespace Repair.Dashboards
@@ -17,6 +18,7 @@ namespace Repair.Dashboards
             m_isDragging = true;
             m_screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
             m_offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenPoint.z));
+            EventEmitter.Emit(GameEvent.NerversDraging, new BoolEvent(true));
         }
 
         void OnMouseDrag()
@@ -29,6 +31,7 @@ namespace Repair.Dashboards
         private void OnMouseUp()
         {
             m_isDragging = false;
+            EventEmitter.Emit(GameEvent.NerversDraging, new BoolEvent(false));
         }
 
         protected override void RemoveLinkCell(BaseCellController cell)

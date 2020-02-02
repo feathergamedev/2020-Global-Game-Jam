@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 678450726183568051}
   - component: {fileID: 6125916297060587760}
   m_Layer: 5
-  m_Name: <R
+  m_Name: <A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_linkEffect: {fileID: 3574074740466312208}
-  m_keyCode: 114
+  m_keyCode: 97
 --- !u!1 &1226226205892548873
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 8561790166056538195}
   - component: {fileID: 3091398202677204200}
   m_Layer: 5
-  m_Name: T>
+  m_Name: D>
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,7 +883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_linkEffect: {fileID: 3118381922927121381}
-  m_keyCode: 116
+  m_keyCode: 100
 --- !u!1 &3118381922927121381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1256,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: T>
+  m_Text: D>
 --- !u!1 &4525863024776766036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,7 +2328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: <R
+  m_Text: <A
 --- !u!1 &6555495140405520274
 GameObject:
   m_ObjectHideFlags: 0

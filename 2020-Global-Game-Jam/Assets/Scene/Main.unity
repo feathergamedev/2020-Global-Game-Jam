@@ -400,7 +400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3875, y: 294.79996, z: -10}
+  m_LocalPosition: {x: 4.3875, y: 293.49997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -436,8 +436,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stagePrefabs:
-  - {fileID: 1811860210144183152, guid: 2c74b0ecaac904f27b3b51e81d311154, type: 3}
-  - {fileID: 1811860210144183152, guid: 93eef5b55ce9e4c3e8e3a580ecdccc0a, type: 3}
+  - {fileID: 1811860210144183152, guid: 945c20d2bb78c4a00b0fd0a00081241b, type: 3}
+  - {fileID: 1811860210144183152, guid: f60957372119d4d02858d8f23e6075ab, type: 3}
+  - {fileID: 1811860210144183152, guid: 945c20d2bb78c4a00b0fd0a00081241b, type: 3}
   - {fileID: 1811860210144183152, guid: 8d3e8dce2b2414aef9b1f643f61f3107, type: 3}
   stage: {fileID: 1042169924}
   dashboardPrefabs:
@@ -519,7 +520,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897875923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3875, y: 294.79996, z: -10}
+  m_LocalPosition: {x: 4.3875, y: 293.49997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2132011102}
@@ -822,7 +823,7 @@ MonoBehaviour:
   m_YDamping: 1
   m_ZDamping: 1
   m_ScreenX: 0.2
-  m_ScreenY: 0.3
+  m_ScreenY: 0.25
   m_CameraDistance: 10
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
