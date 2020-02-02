@@ -25,6 +25,7 @@ namespace Repair.Infrastructures.Settings
         Cartoon_Boing,
         cat_screaming,
         cat_screech_frightened,
+        CatJump,
         Clown_Horn_Squeak,
         Kids_Playing,
         meow_001,
