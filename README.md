@@ -1,6 +1,4 @@
-# 2020-Global-Game-Jam
-
-# Brain Repair
+# Game Title : Brain Repair
 
 Jam Site : III Taipei, Taiwan
 Jam Page : https://globalgamejam.org/users/Feather%20Chung/games
