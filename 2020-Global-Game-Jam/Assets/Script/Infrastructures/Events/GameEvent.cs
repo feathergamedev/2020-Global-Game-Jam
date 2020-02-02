@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Repair.Infrastructures.Settings;
+using UnityEngine;
 
 namespace Repair.Infrastructures.Events
 {
@@ -16,6 +17,8 @@ namespace Repair.Infrastructures.Events
         PlaySound,
         NerversRotation,
         NerversDraging,
+        KeyPressed,
+        KeyUp,
     }
 
     public class ListEvent : IEvent
@@ -62,6 +65,15 @@ namespace Repair.Infrastructures.Events
         public ActionEvent(ActionType value)
         {
             Value = value;
+        }
+    }
+
+    public class KeyCodeEvent : IEvent
+    {
+        public KeyCode Value { get; }
+        public KeyCodeEvent(KeyCode keyCode)
+        {
+            Value = keyCode;
         }
     }
 

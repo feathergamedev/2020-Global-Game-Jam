@@ -2,6 +2,7 @@
 using Repair.Dashboard.Events;
 using Repair.Infrastructures.Events;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Repair.Dashboards
 {
@@ -44,6 +45,16 @@ namespace Repair.Dashboards
         public void Trigger()
         {
             CheckPoweredCells(this, true);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+
         }
     }
 }

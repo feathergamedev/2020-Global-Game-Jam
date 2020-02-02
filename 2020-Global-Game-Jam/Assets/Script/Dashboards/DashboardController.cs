@@ -70,11 +70,15 @@ namespace Repair.Dashboards
             }
 
             EventEmitter.Add(GameEvent.Killed, OnKilled);
+            EventEmitter.Add(GameEvent.KeyPressed, OnKeyPressed);
+            EventEmitter.Add(GameEvent.KeyUp, OnKeyUp);
         }
 
         private void OnDestroy()
         {
             EventEmitter.Remove(GameEvent.Killed, OnKilled);
+            EventEmitter.Remove(GameEvent.KeyPressed, OnKeyPressed);
+            EventEmitter.Remove(GameEvent.KeyUp, OnKeyUp);
         }
 
         private void ResetList()
@@ -271,6 +275,18 @@ namespace Repair.Dashboards
             {
                 EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Cartoon_Boing, 7));
             });
+        }
+
+        private void OnKeyPressed(IEvent @event)
+        {
+            Debug.Log("OnKeyPressed" + (@event as KeyCodeEvent).Value);
+            m_pressedKeyCodes.Add((@event as KeyCodeEvent).Value);
+        }
+
+        private void OnKeyUp(IEvent @event)
+        {
+            Debug.Log("OnKeyUp" + (@event as KeyCodeEvent).Value);
+            m_pressedKeyCodes.Remove((@event as KeyCodeEvent).Value);
         }
     }
 }
