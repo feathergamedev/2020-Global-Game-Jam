@@ -153,6 +153,12 @@ namespace Repair.Infrastructures.Scenes.MainScenes
                 ReloadScene();
             }
 
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                ProgressHelper.I.SetStage(3);
+                ReloadScene();
+            }
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Cartoon_Boing, 0));
