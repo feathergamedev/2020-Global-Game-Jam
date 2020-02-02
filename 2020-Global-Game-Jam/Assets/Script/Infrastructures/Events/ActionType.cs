@@ -8,7 +8,8 @@ namespace Repair.Infrastructures.Events
         None = 0,
         Left = 1,
         Right = 2,
-        Jump = 4,
+//        Jump = 4,
+        NewJump = 4,
         Sprint = 8,
         Hit = 16,
     }

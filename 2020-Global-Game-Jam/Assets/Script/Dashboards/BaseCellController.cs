@@ -40,12 +40,7 @@ namespace Repair.Dashboards
         public void Clear()
         {
             IsLinked = false;
-            IsPowerUp = false;
-            foreach (var cell in m_closeCell)
-            {
-                cell.IsLinked = false;
-                cell.IsPowerUp = false;
-            }
+            m_isPowerUp = false;
         }
 
         void OnTriggerEnter2D(Collider2D triggerCollider)

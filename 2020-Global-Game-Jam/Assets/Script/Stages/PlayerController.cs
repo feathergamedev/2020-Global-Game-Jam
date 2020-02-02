@@ -7,6 +7,7 @@ using Repair.Infrastructures.Settings;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
 
     [SerializeField]
     private bool m_isOnGround;
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+
         m_rigid = GetComponent<Rigidbody2D>();
         m_collider = GetComponent<BoxCollider2D>();
 
@@ -67,7 +70,7 @@ public class PlayerController : MonoBehaviour
         EventEmitter.Add(GameEvent.StageClear, RequestStageClear);
 
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -123,8 +126,9 @@ public class PlayerController : MonoBehaviour
             m_catAnimator.SetBool("Dash", false);
         }
 
-        if ((e & ActionType.Jump) == ActionType.Jump)
+        if ((e & ActionType.NewJump) == ActionType.NewJump)
         {
+            Debug.Log("Jump!!");
             Jump();
         }
 

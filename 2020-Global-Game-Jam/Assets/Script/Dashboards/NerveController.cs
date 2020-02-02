@@ -36,9 +36,9 @@ namespace Repair.Dashboards
 
         protected override void RemoveLinkCell(BaseCellController cell)
         {
-            m_closeCell.Clear();
+            //m_closeCell.Clear();
             base.RemoveLinkCell(cell);
-            CheckPoweredCells(this, IsPowerUp);
+            //CheckPoweredCells(this, IsPowerUp);
         }
 
         void FixedUpdate()
