@@ -99,6 +99,7 @@ namespace Repair.Infrastructures.Audios
 
                 musicSource.Type = audioName;
                 musicSource.Source.clip = clip;
+                musicSource.Source.loop = true;
                 musicSource.Source.Play();
             }
             else

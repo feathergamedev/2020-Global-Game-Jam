@@ -139,6 +139,8 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
         private void OnPlayButtonClicked()
         {
+            var randomMeowSound = UnityEngine.Random.Range(8, 15);
+            EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent((SoundType)randomMeowSound, 9));
             sceneMask.Show(() => SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex));
         }
 

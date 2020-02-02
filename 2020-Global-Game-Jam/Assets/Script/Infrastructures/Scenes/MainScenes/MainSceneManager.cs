@@ -53,7 +53,7 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         {
             sceneMask.Hide(NotifyGameStart);
             EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Twirly_Tops));
-        }
+        }   
 
         private void OnDestroy()
         {
