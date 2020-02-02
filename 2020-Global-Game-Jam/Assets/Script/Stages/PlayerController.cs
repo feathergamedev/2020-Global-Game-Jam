@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator m_catAnimator, m_weaponAnimator;
 
+    [SerializeField]
+    private GameObject m_curTouchingPlatform;
+
     private void Awake()
     {
         m_rigid = GetComponent<Rigidbody2D>();
@@ -125,7 +128,19 @@ public class PlayerController : MonoBehaviour
     private bool GroundCheck()
     {
         var DetectSize = m_groundDetectTransform.localScale;
-        return Physics2D.OverlapBox(m_groundDetectTransform.position, DetectSize, 0, m_layerGround);
+        var platform = Physics2D.OverlapBox(m_groundDetectTransform.position, DetectSize, 0, m_layerGround);
+
+
+
+        if (platform == null)
+        {
+            m_curTouchingPlatform = null;
+            return false;
+        }
+
+        m_curTouchingPlatform = platform.gameObject;
+        transform.SetParent(m_curTouchingPlatform.transform);
+        return true;
     }
 
     public void StopWalking()
