@@ -23,9 +23,37 @@ namespace Repair.Dashboards
 
         void OnMouseDrag()
         {
+            const int minX = -520;
+            const int maxX = 520;
+            const int minY = -560;
+            const int maxY = 380;
+
             Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenPoint.z);
             Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + m_offset;
             transform.position = curPosition;
+
+            var x = transform.localPosition.x;
+            var y = transform.localPosition.y;
+
+            if (x >= maxX)
+            {
+                x = maxX;
+            }
+            else if (x <= minX)
+            {
+                x = minX;
+            }
+
+            if (y >= maxY)
+            {
+                y = maxY;
+            }
+            else if (y <= minY)
+            {
+                y = minY;
+            }
+
+            transform.localPosition = new Vector3(x, y);
         }
 
         private void OnMouseUp()
@@ -36,9 +64,7 @@ namespace Repair.Dashboards
 
         protected override void RemoveLinkCell(BaseCellController cell)
         {
-            //m_closeCell.Clear();
             base.RemoveLinkCell(cell);
-            //CheckPoweredCells(this, IsPowerUp);
         }
 
         void FixedUpdate()
