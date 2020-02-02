@@ -9,8 +9,7 @@ public class InstantKill : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Failed.");
-            EventEmitter.Emit(GameEvent.Restart);
+            EventEmitter.Emit(GameEvent.Killed);
         }
     }
 }
