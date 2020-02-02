@@ -5,7 +5,6 @@ using System.Linq;
 using DG.Tweening;
 using Repair.Infrastructures.Core;
 using Repair.Infrastructures.Events;
-using Repair.Infrastructures.Scenes.MainScenes;
 using Repair.Infrastructures.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,7 +33,7 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
         private Image mask;
 
         [SerializeField]
-        private Image sceneMask;
+        private MaskHelper sceneMask;
 
         private void Awake()
         {
@@ -66,11 +65,13 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
             if (!ProgressHelper.I.GetSawStory())
             {
+                sceneMask.Init();
                 ProgressHelper.I.SetSawStory(true);
                 StartCoroutine(ShowStory());
             }
             else
             {
+                sceneMask.Init();
                 StartCoroutine(ShowTitle());
             }
 
@@ -136,12 +137,12 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
         private void OnPlayButtonClicked()
         {
-            SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
+            sceneMask.Show(() => SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex));
         }
 
         private void OnCreditButtonClicked()
         {
-            SceneManager.LoadScene(ProjectInfo.SceneInfos.Credit.BuildIndex);
+            sceneMask.Show(() => SceneManager.LoadScene(ProjectInfo.SceneInfos.Credit.BuildIndex));
         }
 
         private void OnSkipButtonClicked()
@@ -157,26 +158,6 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
             }
 
             OnTitleShow();
-        }
-
-        private IEnumerator FadeInSceneMask(Action callback)
-        {
-            var color = Color.black;
-            sceneMask.color = new Color(color.r, color.g, color.b, 0);
-            sceneMask.gameObject.SetActive(true);
-            DOTween.ToAlpha(() => sceneMask.color, (c) => sceneMask.color = c, 1, 1);
-            yield return new WaitForSeconds(1);
-            callback?.Invoke();
-        }
-
-        private IEnumerator FadeOutSceneMask(Action callback)
-        {
-            var color = Color.black;
-            sceneMask.color = new Color(color.r, color.g, color.b, 1);
-            sceneMask.gameObject.SetActive(true);
-            DOTween.ToAlpha(() => sceneMask.color, (c) => sceneMask.color = c, 0, 1);
-            yield return new WaitForSeconds(1);
-            callback?.Invoke();
         }
     }
 }

@@ -21,10 +21,15 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         [SerializeField]
         private Transform dashboard;
 
+        [SerializeField]
+        private MaskHelper sceneMask;
+
         private void Awake()
         {
             App.I.Initialize();
             ProgressHelper.I.Initialize(stagePrefabs.Count);
+
+            sceneMask.Init(Color.black);
 
             var currentStage = ProgressHelper.I.GetStage();
             Debug.Log($"currentStage: {currentStage}");
@@ -36,7 +41,7 @@ namespace Repair.Infrastructures.Scenes.MainScenes
 
         private void Start()
         {
-            NotifyGameStart();
+            sceneMask.Hide(NotifyGameStart);
             EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Twirly_Tops));
         }
 
@@ -110,13 +115,13 @@ namespace Repair.Infrastructures.Scenes.MainScenes
 
         private void ReloadScene()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            sceneMask.Show(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
         }
 
         private void ShowCredit()
         {
             ProgressHelper.I.SetComplete(true);
-            SceneManager.LoadScene(ProjectInfo.SceneInfos.Credit.BuildIndex);
+            sceneMask.Show(() => SceneManager.LoadScene(ProjectInfo.SceneInfos.Credit.BuildIndex));
         }
 
         private void Update()
@@ -128,11 +133,6 @@ namespace Repair.Infrastructures.Scenes.MainScenes
             else if (Input.GetKeyDown(KeyCode.W))
             {
                 HandleOnRestart();
-            }
-            else if (Input.GetKeyDown(KeyCode.E))
-            {
-                ProgressHelper.I.SetStage(0);
-                ReloadScene();
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -157,16 +157,6 @@ namespace Repair.Infrastructures.Scenes.MainScenes
             {
                 ProgressHelper.I.SetStage(3);
                 ReloadScene();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Cartoon_Boing, 0));
-            }
-
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Mute));
             }
         }
     }

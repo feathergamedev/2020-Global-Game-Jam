@@ -1,6 +1,6 @@
 ﻿using Repair.Infrastructures.Core;
 
-namespace Repair.Infrastructures.Scenes.MainScenes
+namespace Repair.Infrastructures.Scenes
 {
     internal class ProgressHelper : Singleton<ProgressHelper>
     {

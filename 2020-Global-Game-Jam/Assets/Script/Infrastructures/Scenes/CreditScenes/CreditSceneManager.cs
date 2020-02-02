@@ -17,12 +17,24 @@ namespace Repair.Infrastructures.Scenes.CreditScenes
         [SerializeField]
         private GameObject toBeContinue;
 
+        [SerializeField]
+        private MaskHelper sceneMask;
+
         private void Awake()
         {
             App.I.Initialize();
 
             closeButton.onClick.AddListener(OnCloseButtonClicked);
             toBeContinue.SetActive(ProgressHelper.I.GetComplete());
+
+            if (toBeContinue.activeInHierarchy)
+            {
+                sceneMask.Init();
+            }
+            else
+            {
+                sceneMask.Init(Color.black);
+            }
         }
 
         private void OnDestroy()
@@ -38,6 +50,10 @@ namespace Repair.Infrastructures.Scenes.CreditScenes
             {
                 StartCoroutine(HideToBeContinue());
             }
+            else
+            {
+                sceneMask.Hide();
+            }
 
             IEnumerator HideToBeContinue()
             {
@@ -50,7 +66,7 @@ namespace Repair.Infrastructures.Scenes.CreditScenes
 
         private void OnCloseButtonClicked()
         {
-            SceneManager.LoadScene(ProjectInfo.SceneInfos.Home.BuildIndex);
+            sceneMask.Show(() => SceneManager.LoadScene(ProjectInfo.SceneInfos.Home.BuildIndex));
         }
     }
 }
