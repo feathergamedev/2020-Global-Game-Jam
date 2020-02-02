@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        m_catAnimator.SetBool("OnGround", m_isOnGround);
+
         if (Input.GetKey(KeyCode.J))
         {
             MoveLeft();
@@ -279,6 +281,8 @@ public class PlayerController : MonoBehaviour
         m_weaponAnimator.SetTrigger("Attack");
 
         m_isAttacking = true;
+
+        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.swing_sword, 6));
     }
 
     public void AttackDetect()
@@ -358,6 +362,8 @@ public class PlayerController : MonoBehaviour
         m_isJumping = true;
         m_rigid.velocity += new Vector2(0, m_jumpForce);
 
+        m_catAnimator.SetTrigger("Jump");
+
         EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.CatJump, 8));
     }
 
@@ -369,6 +375,7 @@ public class PlayerController : MonoBehaviour
         m_rigid.velocity = Vector2.zero;
         m_rigid.bodyType = RigidbodyType2D.Static;
 
+        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.cat_screaming, 7));
 
         StartCoroutine(DiePerform());
     }

@@ -35,6 +35,8 @@ namespace Repair.Infrastructures.Settings
         meow_005,
         meow_006,
         meow_007,
+        Story_BGM,
+        swing_sword,
 
     }
 
