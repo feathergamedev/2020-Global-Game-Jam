@@ -8,6 +8,7 @@ namespace Repair.Infrastructures.Events
         None,
         Restart,
         Killed,
+        StageClear,
         Complete,
         Action,
         GameStart,

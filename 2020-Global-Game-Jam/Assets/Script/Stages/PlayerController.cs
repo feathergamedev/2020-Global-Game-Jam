@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rigid;
 
     [SerializeField]
+    private BoxCollider2D m_collider;
+
+    [SerializeField]
     private Transform m_attackTransform;
 
     [SerializeField]
@@ -55,9 +58,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         m_rigid = GetComponent<Rigidbody2D>();
+        m_collider = GetComponent<BoxCollider2D>();
 
         EventEmitter.Add(GameEvent.Action, HandleOnAction);
         EventEmitter.Add(GameEvent.Killed, ElectricKill);
+        EventEmitter.Add(GameEvent.StageClear , RequestStageClear);
+
     }
 
     // Start is called before the first frame update
@@ -70,7 +76,7 @@ public class PlayerController : MonoBehaviour
     {
         EventEmitter.Remove(GameEvent.Action, HandleOnAction);
         EventEmitter.Remove(GameEvent.Killed, ElectricKill);
-
+        EventEmitter.Remove(GameEvent.StageClear, RequestStageClear);
     }
 
     // Update is called once per frame
@@ -280,6 +286,9 @@ public class PlayerController : MonoBehaviour
     public void ElectricKill(IEvent @event)
     {
         m_catAnimator.SetTrigger("Die");
+        m_collider.enabled = false;
+        m_rigid.bodyType = RigidbodyType2D.Kinematic;
+
         StartCoroutine(DiePerform());
     }
 
@@ -287,5 +296,26 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.05f);
         EventEmitter.Emit(GameEvent.Restart);
+    }
+
+    public void RequestStageClear(IEvent @event)
+    {
+        m_catAnimator.SetTrigger("Win");
+        m_collider.enabled = false;
+        m_rigid.bodyType = RigidbodyType2D.Kinematic;
+
+        StartCoroutine(StageClearPerform());
+    }
+
+    private IEnumerator StageClearPerform()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        // Fade out;
+
+        EventEmitter.Emit(GameEvent.Complete);
+
+        yield return null;
+
     }
 }

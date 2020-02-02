@@ -6204,7 +6204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isOnGround: 0
   m_isFacingRight: 0
-  m_moveSpeed: 6
+  m_moveSpeed: 7
   m_sprintSpeedMultiplier: 1.5
   m_jumpForce: 18
   m_sprintEffect: {fileID: 0}
@@ -6215,6 +6215,7 @@ MonoBehaviour:
   m_sprintForce: {x: 0, y: 0}
   m_sprintDuration: 0
   m_rigid: {fileID: 6925409916132469946}
+  m_collider: {fileID: 0}
   m_attackTransform: {fileID: 774098677}
   m_catAnimator: {fileID: 1077023193519046948}
   m_weaponAnimator: {fileID: 5932648527589042771}

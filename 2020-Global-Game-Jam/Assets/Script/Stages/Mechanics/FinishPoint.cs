@@ -21,8 +21,7 @@ public class FinishPoint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Level Completed!");
-            EventEmitter.Emit(GameEvent.Complete);
+            EventEmitter.Emit(GameEvent.StageClear);
         }
     }
 }

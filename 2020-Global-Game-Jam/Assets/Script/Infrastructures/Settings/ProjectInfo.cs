@@ -8,7 +8,7 @@ namespace Repair.Infrastructures.Settings
     public enum MusicType
     {
         Mute,
-        Slug_Love_87,
+        Twirly_Tops,
 
     }
 
@@ -19,9 +19,17 @@ namespace Repair.Infrastructures.Settings
     public enum SoundType
     {
         Mute,
-        Beep_Short,
         Cartoon_Boing,
+        cat_screech_frightened,
         Clown_Horn_Squeak,
+        Kids_Playing,
+        meow_001,
+        meow_002,
+        meow_003,
+        meow_004,
+        meow_005,
+        meow_006,
+        meow_007,
 
     }
 
@@ -52,6 +60,7 @@ namespace Repair.Infrastructures.Settings
             public static readonly TagInfo MainCamera = new TagInfo(index: 4, name: "MainCamera");
             public static readonly TagInfo Player = new TagInfo(index: 5, name: "Player");
             public static readonly TagInfo GameController = new TagInfo(index: 6, name: "GameController");
+            public static readonly TagInfo FinishPoint = new TagInfo(index: 7, name: "FinishPoint");
 
         }
 
