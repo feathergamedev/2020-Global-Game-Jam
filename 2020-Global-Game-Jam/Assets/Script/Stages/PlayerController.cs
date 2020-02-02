@@ -93,6 +93,37 @@ public class PlayerController : MonoBehaviour
         {
             m_rigid.velocity -= new Vector2(0, m_rigid.velocity.y);
         }
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            MoveLeft();
+        }
+        else if (Input.GetKey(KeyCode.L))
+        {
+            MoveRight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            RequestAttack();
+        }
+
+        if (Input.GetKey(KeyCode.I))
+        {
+            Debug.Log("Yo");
+            Jump();
+        }
+
+        if (Input.GetKey(KeyCode.Y))
+        {
+            SpeedUp();
+        }
+
+        if (m_catAnimator.GetBool("Walk") == false)
+        {
+            m_rigid.velocity = new Vector2(0f, m_rigid.velocity.y);
+        }
+
     }
 
     private void HandleOnAction(IEvent @event)
@@ -101,8 +132,13 @@ public class PlayerController : MonoBehaviour
     }
 
     private void RegisterInputEvent(ActionType e)
-    { 
-        if ((e & ActionType.Left) == ActionType.Left)
+    {
+        if ((e & ActionType.Left) == ActionType.Left
+            && (e & ActionType.Right) == ActionType.Right)
+        {
+            Debug.Log("Left and Right at the same time. Do nothing.");
+        }
+        else if ((e & ActionType.Left) == ActionType.Left)
         {
             MoveLeft();
         }
@@ -112,18 +148,16 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            StopWalking();
+            m_catAnimator.SetBool("Walk", false);
         }
 
         if ((e & ActionType.Sprint) == ActionType.Sprint)
         {
             SpeedUp();
-            m_catAnimator.SetBool("Dash", true);
         }
         else
         {
             BackToNormalSpeed();
-            m_catAnimator.SetBool("Dash", false);
         }
 
         if ((e & ActionType.NewJump) == ActionType.NewJump)
@@ -152,13 +186,18 @@ public class PlayerController : MonoBehaviour
         }
 
         m_curTouchingPlatform = platform.gameObject;
-        transform.SetParent(m_curTouchingPlatform.transform);
+
+        if (platform.gameObject.tag == "Floating")
+        {
+            Debug.Log("Set to parent.");
+            transform.SetParent(m_curTouchingPlatform.transform);
+        }
+
         return true;
     }
 
     public void StopWalking()
     {
-        m_rigid.velocity -= new Vector2(m_rigid.velocity.x, 0);
         m_catAnimator.SetBool("Walk", false);
     }
 
@@ -199,11 +238,13 @@ public class PlayerController : MonoBehaviour
     public void SpeedUp()
     {
         m_moveSpeed = m_initMoveSpeed * m_sprintSpeedMultiplier;
+        m_catAnimator.SetBool("Dash", true);
     }
 
     public void BackToNormalSpeed()
     {
         m_moveSpeed = m_initMoveSpeed;
+        m_catAnimator.SetBool("Dash", false);
     }
 
     public void Sprint()
@@ -288,8 +329,12 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         if (!m_isOnGround)
+        {
+            Debug.Log("Not on ground!");
             return;
+        }
 
+        transform.SetParent(null);
         m_rigid.velocity += new Vector2(0, m_jumpForce);
     }
 
