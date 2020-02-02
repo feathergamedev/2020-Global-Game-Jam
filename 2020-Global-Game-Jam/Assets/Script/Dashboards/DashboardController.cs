@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Repair.Dashboard.Events;
 using Repair.Dashboards.Helpers;
 using Repair.Dashboards.Settings;
 using Repair.Infrastructures.Events;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Repair.Dashboards
 {
@@ -61,6 +64,13 @@ namespace Repair.Dashboards
             {
                 m_allCells.Add(cell);
             }
+
+            EventEmitter.Add(GameEvent.Killed, OnKilled);
+        }
+
+        private void OnDestroy()
+        {
+            EventEmitter.Remove(GameEvent.Killed, OnKilled);
         }
 
         private void ResetList()
@@ -205,6 +215,31 @@ namespace Repair.Dashboards
                         cells.IsLinked = false;
                     }
                 }
+            }
+        }
+
+        protected void OnKilled(IEvent @event)
+        {
+            const float r = 2000f;
+            const float duration = 0.8f;
+            var ao = 360f / m_nerves.Count();
+            var idx = 0;
+            var startAo = Random.Range(0, ao);
+            foreach (var nerve in m_nerves)
+            {
+                if (nerve == null)
+                {
+                    continue;
+                }
+
+                var x = r * Math.Cos((startAo + ao * Math.PI * idx) / 180);
+                var y = r * Math.Sin((ao * Math.PI * idx) / 180);
+                var rotate = Random.Range(0, 720);
+
+                nerve.transform.DOLocalMove(new Vector3((float)x, (float)y), duration);
+                nerve.transform.DOLocalRotate(new Vector3(0, 0, rotate), duration);
+
+                idx++;
             }
         }
     }
