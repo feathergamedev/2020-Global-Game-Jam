@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
         EventEmitter.Add(GameEvent.Action, HandleOnAction);
         EventEmitter.Add(GameEvent.Killed, ElectricKill);
-        EventEmitter.Add(GameEvent.StageClear , RequestStageClear);
+        EventEmitter.Add(GameEvent.StageClear, RequestStageClear);
 
     }
 
@@ -98,12 +98,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void RegisterInputEvent(ActionType e)
-    {
-        if ((e & ActionType.Jump) == ActionType.Jump)
-        {
-            Jump();
-        }
-
+    { 
         if ((e & ActionType.Left) == ActionType.Left)
         {
             MoveLeft();
@@ -128,6 +123,10 @@ public class PlayerController : MonoBehaviour
             m_catAnimator.SetBool("Dash", false);
         }
 
+        if ((e & ActionType.Jump) == ActionType.Jump)
+        {
+            Jump();
+        }
 
         if ((e & ActionType.Hit) == ActionType.Hit)
         {
@@ -294,27 +293,32 @@ public class PlayerController : MonoBehaviour
     {
         m_catAnimator.SetTrigger("Die");
         m_collider.enabled = false;
-        m_rigid.bodyType = RigidbodyType2D.Kinematic;
+        m_rigid.velocity = Vector2.zero;
+        m_rigid.bodyType = RigidbodyType2D.Static;
+
 
         StartCoroutine(DiePerform());
     }
 
     private IEnumerator DiePerform()
     {
-        yield return new WaitForSeconds(1.05f);
+        yield return new WaitForSeconds(1.6f);
         EventEmitter.Emit(GameEvent.Restart);
     }
 
     public void RequestStageClear(IEvent @event)
     {
         var finishPoint = GameObject.FindWithTag("FinishPoint");
+        m_collider.enabled = false;
+        m_rigid.bodyType = RigidbodyType2D.Static;
         var oldPosY = transform.position.y;
+        m_rigid.velocity = Vector2.zero;
 
         transform.position = new Vector3( finishPoint.transform.position.x - 0.92f, oldPosY);
 
         m_catAnimator.SetTrigger("Win");
-        m_collider.enabled = false;
-        m_rigid.bodyType = RigidbodyType2D.Kinematic;
+
+        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Clown_Horn_Squeak, 9));
 
         StartCoroutine(StageClearPerform());
     }
