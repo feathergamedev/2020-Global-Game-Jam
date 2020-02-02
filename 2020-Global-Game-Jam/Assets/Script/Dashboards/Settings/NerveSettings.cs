@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Repair.Dashboards.Settings
 {
     public class ScriptableSample : ScriptableObject
     {
+#if UNITY_EDITOR
+
         [MenuItem("Assets/Resources/CreateNerveSettings")]
         public static void CreateAsset()
         {
@@ -16,6 +20,7 @@ namespace Repair.Dashboards.Settings
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
+#endif
     }
 
     [CreateAssetMenu(fileName = "NerveSettings", menuName = "ScriptableObjects/SpawnManagerScriptableObject", order = 1)]

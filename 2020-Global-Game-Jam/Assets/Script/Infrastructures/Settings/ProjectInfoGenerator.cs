@@ -1,6 +1,7 @@
+#if UNITY_EDITOR
+
 using System.IO;
 using System.Text;
-using Repair.Infrastructures.Settings;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditorInternal;
@@ -203,3 +204,5 @@ namespace Repair.Infrastructures.Settings
         }
     }
 }
+
+#endif
