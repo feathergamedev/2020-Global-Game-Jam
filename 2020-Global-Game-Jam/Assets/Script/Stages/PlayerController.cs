@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
+            Debug.Log("Yo");
             Jump();
         }
 
@@ -317,7 +318,11 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         if (!m_isOnGround)
+        {
+            Debug.Log("Not on ground!");
             return;
+        }
+
 
         m_rigid.velocity += new Vector2(0, m_jumpForce);
     }
