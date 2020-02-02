@@ -6,6 +6,7 @@ using Repair.Dashboard.Events;
 using Repair.Dashboards.Helpers;
 using Repair.Dashboards.Settings;
 using Repair.Infrastructures.Events;
+using Repair.Infrastructures.Settings;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -268,6 +269,11 @@ namespace Repair.Dashboards
 
                 idx++;
             }
+
+            DOVirtual.DelayedCall(nerveDelay, () =>
+            {
+                EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Cartoon_Boing, 7));
+            });
         }
     }
 }
