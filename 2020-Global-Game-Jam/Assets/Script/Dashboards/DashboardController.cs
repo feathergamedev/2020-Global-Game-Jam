@@ -63,14 +63,14 @@ namespace Repair.Dashboards
                 m_pressedKeyCodes.Remove(KeyCode.C);
             }
 
-            if (Input.GetKeyUp(KeyCode.R))
+            if (Input.GetKeyUp(KeyCode.A))
             {
-                m_pressedKeyCodes.Remove(KeyCode.R);
+                m_pressedKeyCodes.Remove(KeyCode.A);
             }
 
-            if (Input.GetKeyUp(KeyCode.T))
+            if (Input.GetKeyUp(KeyCode.D))
             {
-                m_pressedKeyCodes.Remove(KeyCode.T);
+                m_pressedKeyCodes.Remove(KeyCode.D);
             }
 
             if (Input.GetKeyDown(KeyCode.Z))
@@ -88,14 +88,14 @@ namespace Repair.Dashboards
                 m_pressedKeyCodes.Add(KeyCode.C);
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                m_pressedKeyCodes.Add(KeyCode.R);
+                m_pressedKeyCodes.Add(KeyCode.A);
             }
 
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                m_pressedKeyCodes.Add(KeyCode.T);
+                m_pressedKeyCodes.Add(KeyCode.D);
             }
 
             foreach (var keyController in m_keys)
@@ -114,15 +114,15 @@ namespace Repair.Dashboards
                 action |= cell.ActionType;
             }
 
-            if (m_pressedKeyCodes.Contains(KeyCode.R) && m_pressedKeyCodes.Contains(KeyCode.T))
+            if (m_pressedKeyCodes.Contains(KeyCode.A) && m_pressedKeyCodes.Contains(KeyCode.D))
             {
                 EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.None));
             }
-            else if (m_pressedKeyCodes.Contains(KeyCode.R))
+            else if (m_pressedKeyCodes.Contains(KeyCode.A))
             {
                 EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.Left));
             }
-            else if (m_pressedKeyCodes.Contains(KeyCode.T))
+            else if (m_pressedKeyCodes.Contains(KeyCode.D))
             {
                 EventEmitter.Emit(GameEvent.NerversRotation, new RotationEvent(RotationStatus.Right));
             }
