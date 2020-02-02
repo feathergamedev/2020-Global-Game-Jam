@@ -34,8 +34,8 @@ namespace Repair.Infrastructures.Settings
         public static class SceneInfos
         {
             public static readonly SceneInfo Credit = new SceneInfo(buildIndex: 2, name: "Credit", path: "Assets/Scene/Credit.unity", bundleName: "");
+            public static readonly SceneInfo Feather = new SceneInfo(buildIndex: 1, name: "Feather", path: "Assets/Scene/Feather.unity", bundleName: "");
             public static readonly SceneInfo Home = new SceneInfo(buildIndex: 0, name: "Home", path: "Assets/Scene/Home.unity", bundleName: "");
-            public static readonly SceneInfo Main = new SceneInfo(buildIndex: 1, name: "Main", path: "Assets/Scene/Main.unity", bundleName: "");
 
         }
 
