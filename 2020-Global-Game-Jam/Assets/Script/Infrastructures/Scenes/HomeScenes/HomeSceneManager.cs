@@ -108,24 +108,26 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
                 {
                     story.gameObject.SetActive(true);
                     yield return HideMask();
-                    yield return new WaitForSeconds(2f);
-                    if (story != stories.Last())
+                    if (story == stories.Last())
                     {
-                        yield return ShowMask(Color.black);
+                        yield return new WaitForSeconds(1f);
+                        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Car_Hit, 3));
+                        yield return new WaitForSeconds(1f);
+                        skipButton.gameObject.SetActive(false);
+                        yield return ShowMask(Color.white, 3f);
                         story.gameObject.SetActive(false);
                     }
                     else
                     {
-                        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Car_Hit, 3));
-                        skipButton.gameObject.SetActive(false);
-                        yield return ShowMask(Color.white, 4f);
+                        yield return new WaitForSeconds(2f);
+                        yield return ShowMask(Color.black);
                         story.gameObject.SetActive(false);
                     }
                 }
 
                 EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Mute));
-                storyRoot.SetActive(false);
                 yield return HideMask();
+                storyRoot.SetActive(false);
                 OnTitleShow();
             }
         }
