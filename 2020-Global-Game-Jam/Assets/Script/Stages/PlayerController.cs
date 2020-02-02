@@ -113,6 +113,8 @@ public class PlayerController : MonoBehaviour
 
         m_catAnimator.SetBool("OnGround", m_isOnGround);
 
+        /*
+
         if (Input.GetKey(KeyCode.J))
         {
             MoveLeft();
@@ -137,6 +139,8 @@ public class PlayerController : MonoBehaviour
         {
             SpeedUp();
         }
+
+        */
 
         if (m_catAnimator.GetBool("Walk") == false)
         {

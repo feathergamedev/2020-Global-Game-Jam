@@ -146,15 +146,19 @@ namespace Repair.Infrastructures.Scenes.MainScenes
 
         private void Update()
         {
+            /*
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 HandleOnComplete();
             }
-            else if (Input.GetKeyDown(KeyCode.W))
+            */
+
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 HandleOnRestart();
             }
 
+            /*
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 ProgressHelper.I.SetStage(0);
@@ -178,6 +182,7 @@ namespace Repair.Infrastructures.Scenes.MainScenes
                 ProgressHelper.I.SetStage(3);
                 ReloadScene();
             }
+            */
         }
     }
 }
