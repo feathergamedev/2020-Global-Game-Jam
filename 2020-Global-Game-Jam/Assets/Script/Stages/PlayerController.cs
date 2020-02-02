@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Repair.Infrastructures.Events;
 using Repair.Infrastructures.Settings;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float m_sprintSpeedMultiplier;
 
-    private float m_initMoveSpeed;    
+    private float m_initMoveSpeed;
 
     [SerializeField]
     private float m_jumpForce;
@@ -51,6 +52,9 @@ public class PlayerController : MonoBehaviour
     private Transform m_attackTransform;
 
     private bool m_isAttacking;
+    private bool m_isJumping;
+    private bool m_isInitialized;
+    private long m_startJumpAt;
 
     [SerializeField]
     private Animator m_catAnimator, m_weaponAnimator;
@@ -69,12 +73,15 @@ public class PlayerController : MonoBehaviour
         EventEmitter.Add(GameEvent.Killed, ElectricKill);
         EventEmitter.Add(GameEvent.StageClear, RequestStageClear);
 
+        Debug.LogError("Awake PlayerController");
+
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
         m_initMoveSpeed = m_moveSpeed;
+        m_rigid.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void OnDestroy()
@@ -87,11 +94,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_isOnGround = GroundCheck();
-
-        if (m_isOnGround)
+        if (!m_isInitialized)
         {
-            m_rigid.velocity -= new Vector2(0, m_rigid.velocity.y);
+            m_isOnGround = GroundCheck();
+            if (m_isOnGround)
+            {
+                m_isInitialized = true;
+            }
+        }
+
+        if (m_isInitialized && m_isJumping && (DateTime.UtcNow.Ticks - m_startJumpAt > 1000000))
+        {
+            m_isOnGround = GroundCheck();
+            if (m_isOnGround)
+            {
+                m_isJumping = false;
+                m_rigid.velocity -= new Vector2(0, m_rigid.velocity.y);
+            }
         }
 
         if (Input.GetKey(KeyCode.J))
@@ -110,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.I))
         {
-            Debug.Log("Yo");
+            Debug.Log($"Press I");
             Jump();
         }
 
@@ -142,7 +161,7 @@ public class PlayerController : MonoBehaviour
         {
             MoveLeft();
         }
-        else  if ((e & ActionType.Right) == ActionType.Right)
+        else if ((e & ActionType.Right) == ActionType.Right)
         {
             MoveRight();
         }
@@ -229,6 +248,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        Debug.Log("MoveRight");
         var curVelocityY = m_rigid.velocity.y;
         m_rigid.velocity = new Vector2(m_moveSpeed, curVelocityY);
         transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -249,9 +269,9 @@ public class PlayerController : MonoBehaviour
 
     public void Sprint()
     {
-        var sprintForce = m_sprintForce * ((m_isFacingRight==true) ? 1 : -1);
+        var sprintForce = m_sprintForce * ((m_isFacingRight == true) ? 1 : -1);
         Debug.Log(sprintForce);
-        StartCoroutine(SprintPerform(sprintForce));        
+        StartCoroutine(SprintPerform(sprintForce));
     }
 
     public void RequestAttack()
@@ -273,7 +293,7 @@ public class PlayerController : MonoBehaviour
         if (result.Length == 0)
             return;
 
-        for(int i=0; i<result.Length; i++)
+        for (int i = 0; i < result.Length; i++)
         {
             var woodCase = result[i].GetComponent<WoodenCase>();
 
@@ -291,16 +311,16 @@ public class PlayerController : MonoBehaviour
         m_sprintEffect.emitting = true;
 
         m_rigid.velocity = force;
-/*
-        var time = m_sprintDuration * 60f;
+        /*
+                var time = m_sprintDuration * 60f;
 
-        for(int i=0; i<time; i++)
-        {
-            var newVelocity = force - force / time;
-            m_rigid.velocity = newVelocity;
-        }
-*/
-        
+                for(int i=0; i<time; i++)
+                {
+                    var newVelocity = force - force / time;
+                    m_rigid.velocity = newVelocity;
+                }
+        */
+
         var newVelocity = force;
         var curX = force.x;
         var curY = force.y;
@@ -311,30 +331,34 @@ public class PlayerController : MonoBehaviour
 
         DOVirtual.DelayedCall(m_sprintDuration, () => { isPerforming = false; });
 
-        for(int i=0; i<m_sprintDuration*60f; i++)
+        for (int i = 0; i < m_sprintDuration * 60f; i++)
         {
             Debug.LogFormat("X:{0}, Y:{1}", curX, curY);
             newVelocity = new Vector2(curX, curY);
             Debug.LogFormat("NewVelocity is {0}", newVelocity);
             m_rigid.velocity = newVelocity;
             yield return new WaitForSeconds(m_sprintDuration / 60f);
-        }        
+        }
 
         m_sprintEffect.emitting = false;
-        
+
 
         yield return null;
     }
 
     public void Jump()
     {
-        if (!m_isOnGround)
+        if (!m_isOnGround || m_isJumping)
         {
             Debug.Log("Not on ground!");
             return;
         }
 
         transform.SetParent(null);
+        m_startJumpAt = DateTime.UtcNow.Ticks;
+
+        m_isOnGround = false;
+        m_isJumping = true;
         m_rigid.velocity += new Vector2(0, m_jumpForce);
 
         EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.CatJump, 8));
@@ -342,6 +366,7 @@ public class PlayerController : MonoBehaviour
 
     public void ElectricKill(IEvent @event)
     {
+        Debug.LogWarning("ElectricKill");
         m_catAnimator.SetTrigger("Die");
         m_collider.enabled = false;
         m_rigid.velocity = Vector2.zero;
@@ -359,13 +384,14 @@ public class PlayerController : MonoBehaviour
 
     public void RequestStageClear(IEvent @event)
     {
+        Debug.LogWarning("RequestStageClear");
         var finishPoint = GameObject.FindWithTag("FinishPoint");
         m_collider.enabled = false;
         m_rigid.bodyType = RigidbodyType2D.Static;
         var oldPosY = transform.position.y;
         m_rigid.velocity = Vector2.zero;
 
-        transform.position = new Vector3( finishPoint.transform.position.x - 0.92f, oldPosY);
+        transform.position = new Vector3(finishPoint.transform.position.x - 0.92f, oldPosY);
 
         m_catAnimator.SetTrigger("Win");
 
