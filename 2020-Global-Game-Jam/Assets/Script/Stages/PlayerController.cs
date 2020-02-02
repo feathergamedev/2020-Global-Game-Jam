@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform m_attackTransform;
 
+    private bool m_isAttacking;
+
     [SerializeField]
     private Animator m_catAnimator, m_weaponAnimator;
 
@@ -210,13 +212,16 @@ public class PlayerController : MonoBehaviour
 
     public void RequestAttack()
     {
+        if (m_isAttacking == true)
+            return;
+
         m_weaponAnimator.SetTrigger("Attack");
+
+        m_isAttacking = true;
     }
 
     public void AttackDetect()
     {
-        Debug.Log("Attack!");
-
         var radius = m_attackTransform.GetComponent<CircleCollider2D>().radius;
 
         var result = Physics2D.OverlapCircleAll(m_attackTransform.position, radius);
@@ -233,6 +238,8 @@ public class PlayerController : MonoBehaviour
                 woodCase.Eliminated();
             }
         }
+
+        m_isAttacking = false;
     }
 
     private IEnumerator SprintPerform(Vector2 force)
@@ -300,6 +307,11 @@ public class PlayerController : MonoBehaviour
 
     public void RequestStageClear(IEvent @event)
     {
+        var finishPoint = GameObject.FindWithTag("FinishPoint");
+        var oldPosY = transform.position.y;
+
+        transform.position = new Vector3( finishPoint.transform.position.x - 0.92f, oldPosY);
+
         m_catAnimator.SetTrigger("Win");
         m_collider.enabled = false;
         m_rigid.bodyType = RigidbodyType2D.Kinematic;
