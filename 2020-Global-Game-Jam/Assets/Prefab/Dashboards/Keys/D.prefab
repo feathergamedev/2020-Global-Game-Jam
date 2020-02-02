@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 288314847153805801}
   - component: {fileID: 6232061301401858637}
   m_Layer: 5
-  m_Name: D_
+  m_Name: D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6047a3e5bad464cfd9e2a76d74ce8766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_linkEffect: {fileID: 0}
-  m_powerUpEffect: {fileID: 0}
+  m_linkEffect: {fileID: 1681165494247625865}
+  m_powerUpEffect: {fileID: 7197267840781979202}
   LinkGroup: 0
   m_keyCode: 100
