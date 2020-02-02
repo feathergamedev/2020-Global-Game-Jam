@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 340, y: 500}
+  m_SizeDelta: {x: 290, y: 490}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1492367301416342202
 CanvasRenderer:
@@ -84,9 +84,9 @@ GameObject:
   - component: {fileID: 3442039056715084234}
   - component: {fileID: 5513624403644198882}
   - component: {fileID: 6003600294234064714}
-  - component: {fileID: 5554080678866211183}
   - component: {fileID: 1922565880497358928}
   - component: {fileID: 7808362095596714135}
+  - component: {fileID: 3230954539617208574}
   m_Layer: 5
   m_Name: New_X
   m_TagString: Untagged
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 340, y: 500}
+  m_SizeDelta: {x: 432, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5513624403644198882
 CanvasRenderer:
@@ -151,55 +151,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!60 &5554080678866211183
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4331437632860493345}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -87.69797, y: -191.51944}
-      - {x: -118.1409, y: -142.06311}
-      - {x: -108.0798, y: -116.36005}
-      - {x: -76.773254, y: -114.98218}
-      - {x: -41.504883, y: -150.40799}
-      - {x: 9.14624, y: -161.9411}
-      - {x: 42.895264, y: -129.76025}
-      - {x: 55.90332, y: -46.41089}
-      - {x: 46.945984, y: 52.071777}
-      - {x: 27.603271, y: 146.31793}
-      - {x: -97.354614, y: 134.45056}
-      - {x: -109.99307, y: 136.685}
-      - {x: -126.44382, y: 159.32819}
-      - {x: -121.64316, y: 185.0747}
-      - {x: -98.33496, y: 197.81622}
-      - {x: -3.6987305, y: 204.74506}
-      - {x: 97.247925, y: 213.91669}
-      - {x: 130.85309, y: 205.66669}
-      - {x: 134.16193, y: 176.25171}
-      - {x: 97.44989, y: 151.388}
-      - {x: 125.64221, y: -69.04712}
-      - {x: 94.38855, y: -173.07816}
-      - {x: 37.895325, y: -214.41974}
-      - {x: -23.573792, y: -222.4188}
 --- !u!50 &1922565880497358928
 Rigidbody2D:
   serializedVersion: 4
@@ -236,6 +187,47 @@ MonoBehaviour:
   m_linkEffect: {fileID: 844050735607955745}
   m_powerUpEffect: {fileID: 6053777447122518432}
   LinkGroup: 0
+--- !u!60 &3230954539617208574
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331437632860493345}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 197.9104, y: 251.48547}
+      - {x: 98.11142, y: 153.0036}
+      - {x: -84.019104, y: 152.20844}
+      - {x: -174.92337, y: 279.08618}
+      - {x: -195.07793, y: 251.67047}
+      - {x: -52.738647, y: 53.60901}
+      - {x: -54.84424, y: -48.481873}
+      - {x: -152.95467, y: -179.3316}
+      - {x: -223.06583, y: -241.25116}
+      - {x: -185.22849, y: -277.8531}
+      - {x: 16.28595, y: -29.734863}
+      - {x: 152.59143, y: -165.2493}
+      - {x: 192.67157, y: -150.62476}
+      - {x: 68.35324, y: -21.205444}
+      - {x: 46.046875, y: 58.19934}
+      - {x: 226.19275, y: 231.07812}
 --- !u!1 &6053777447122518432
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +263,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 340, y: 500}
+  m_SizeDelta: {x: 290, y: 490}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7633759635628940334
 CanvasRenderer:
