@@ -73,8 +73,6 @@ public class PlayerController : MonoBehaviour
         EventEmitter.Add(GameEvent.Killed, ElectricKill);
         EventEmitter.Add(GameEvent.StageClear, RequestStageClear);
 
-        Debug.LogError("Awake PlayerController");
-
     }
 
     // Start is called before the first frame update
@@ -248,7 +246,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Debug.Log("MoveRight");
         var curVelocityY = m_rigid.velocity.y;
         m_rigid.velocity = new Vector2(m_moveSpeed, curVelocityY);
         transform.rotation = Quaternion.Euler(0, 0, 0);
