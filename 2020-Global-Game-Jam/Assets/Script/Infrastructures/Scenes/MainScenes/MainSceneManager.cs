@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using Repair.Infrastructures.Core;
 using Repair.Infrastructures.Events;
 using Repair.Infrastructures.Settings;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Repair.Infrastructures.Scenes.MainScenes
 {
@@ -22,6 +25,12 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         private Transform dashboard;
 
         [SerializeField]
+        private Image stageId;
+
+        [SerializeField]
+        private List<Sprite> stageSprites;
+
+        [SerializeField]
         private MaskHelper sceneMask;
 
         private void Awake()
@@ -34,6 +43,7 @@ namespace Repair.Infrastructures.Scenes.MainScenes
             var currentStage = ProgressHelper.I.GetStage();
             Debug.Log($"currentStage: {currentStage}");
 
+            StartCoroutine(DisplayStageId());
             LoadStage();
             LoadDashboard();
             RegisterEvent();
@@ -80,6 +90,16 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         }
 
         #endregion
+
+        private IEnumerator DisplayStageId()
+        {
+            var currentStage = ProgressHelper.I.GetStage();
+            stageId.sprite = stageSprites[currentStage];
+            yield return new WaitForSeconds(2);
+            DOTween.ToAlpha(() => stageId.color, (c) => stageId.color = c, 0, 1);
+            yield return new WaitForSeconds(1);
+            stageId.gameObject.SetActive(false);
+        }
 
         private void LoadStage()
         {
