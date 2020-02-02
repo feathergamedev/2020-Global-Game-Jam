@@ -121,15 +121,15 @@ namespace Repair.Infrastructures.Scenes.MainScenes
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 HandleOnComplete();
             }
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.W))
             {
                 HandleOnRestart();
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKeyDown(KeyCode.E))
             {
                 ProgressHelper.I.SetStage(0);
                 ReloadScene();
@@ -153,12 +153,12 @@ namespace Repair.Infrastructures.Scenes.MainScenes
                 ReloadScene();
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Cartoon_Boing, 0));
             }
-            
-            if (Input.GetKeyDown(KeyCode.G))
+
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Mute));
             }

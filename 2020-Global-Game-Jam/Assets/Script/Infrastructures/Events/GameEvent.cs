@@ -13,6 +13,7 @@ namespace Repair.Infrastructures.Events
         PlayMusic,
         PlaySound,
         NerversRotation,
+        NerversDraging,
     }
 
     public class ListEvent : IEvent
@@ -31,6 +32,19 @@ namespace Repair.Infrastructures.Events
         }
 
         public IntEvent(int value)
+        {
+            Value = value;
+        }
+    }
+
+    public class BoolEvent : IEvent
+    {
+        public bool Value
+        {
+            get;
+        }
+
+        public BoolEvent(bool value)
         {
             Value = value;
         }
