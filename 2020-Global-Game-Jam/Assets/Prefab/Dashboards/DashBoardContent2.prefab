@@ -534,7 +534,7 @@ MonoBehaviour:
   m_actionContainer: {fileID: 2067026495557252424}
   m_keyContainer: {fileID: 2067026495143319047}
   m_nerveContainer: {fileID: 2067026494855381605}
-  m_nerverSettings: {fileID: 11400000, guid: 9f9b22f1585164839a263d3076c0dfcd, type: 2}
+  m_nerverSettings: {fileID: 11400000, guid: 7b15b2f5027dc4639a16db0683c7daa6, type: 2}
   m_nerveCount: 4
 --- !u!1 &2542170754354924824
 GameObject:
