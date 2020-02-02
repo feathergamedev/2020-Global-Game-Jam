@@ -8,6 +8,7 @@ namespace Repair.Infrastructures.Settings
     public enum MusicType
     {
         Mute,
+        quiet_voices_roomtone,
         Twirly_Tops,
 
     }
@@ -20,6 +21,7 @@ namespace Repair.Infrastructures.Settings
     {
         Mute,
         Cartoon_Boing,
+        cat_screaming,
         cat_screech_frightened,
         Clown_Horn_Squeak,
         Kids_Playing,

@@ -31,7 +31,7 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
         private void Start()
         {
-            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Slug_Love_87));
+            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Twirly_Tops));
         }
 
         private void OnPlayButtonClicked()
