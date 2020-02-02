@@ -40,7 +40,7 @@ namespace Repair.Dashboards
         public void Clear()
         {
             IsLinked = false;
-            IsPowerUp = false;
+            m_isPowerUp = false;
         }
 
         void OnTriggerEnter2D(Collider2D triggerCollider)

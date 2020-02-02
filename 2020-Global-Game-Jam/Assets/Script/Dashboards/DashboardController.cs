@@ -35,6 +35,8 @@ namespace Repair.Dashboards
         private HashSet<BaseCellController> m_openCells = new HashSet<BaseCellController>();
         private HashSet<BaseCellController> m_allCells = new HashSet<BaseCellController>();
 
+        private HashSet<int> m_powerUpGroups = new HashSet<int>();
+
         private Dictionary<int, HashSet<BaseCellController>> m_linkGroup = new Dictionary<int, HashSet<BaseCellController>>();
 
 
@@ -58,6 +60,7 @@ namespace Repair.Dashboards
 
                 nerve.SetInitRotation(Random.Range(0f, m_nerverSettings.InitRotationRange));
                 m_nerves[i] = nerve;
+                m_allCells.Add(nerve);
             }
 
             foreach (var cell in m_actions)
@@ -78,6 +81,7 @@ namespace Repair.Dashboards
             m_openCells = new HashSet<BaseCellController>(m_allCells);
             m_closeCells.Clear();
             m_linkGroup.Clear();
+            m_powerUpGroups.Clear();
         }
 
         void Update()
@@ -149,11 +153,24 @@ namespace Repair.Dashboards
 
             SetLinkedCells();
 
+
             foreach (var keyController in m_keys.Where(e => m_pressedKeyCodes.Contains(e.KeyCode)))
             {
+                m_powerUpGroups.Add(keyController.LinkGroup);
                 foreach (var cell in m_linkGroup[keyController.LinkGroup])
                 {
                     cell.IsPowerUp = true;
+                }
+            }
+
+            foreach (var pair in m_linkGroup)
+            {
+                if (!m_powerUpGroups.Contains(pair.Key))
+                {
+                    foreach (var cell in m_linkGroup[pair.Key])
+                    {
+                        cell.IsPowerUp = false;
+                    }
                 }
             }
 
