@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.Y))
         {
             SpeedUp();
         }
@@ -154,12 +154,10 @@ public class PlayerController : MonoBehaviour
         if ((e & ActionType.Sprint) == ActionType.Sprint)
         {
             SpeedUp();
-            m_catAnimator.SetBool("Dash", true);
         }
         else
         {
             BackToNormalSpeed();
-            m_catAnimator.SetBool("Dash", false);
         }
 
         if ((e & ActionType.NewJump) == ActionType.NewJump)
@@ -188,7 +186,13 @@ public class PlayerController : MonoBehaviour
         }
 
         m_curTouchingPlatform = platform.gameObject;
-        transform.SetParent(m_curTouchingPlatform.transform);
+
+        if (platform.gameObject.tag == "Floating")
+        {
+            Debug.Log("Set to parent.");
+            transform.SetParent(m_curTouchingPlatform.transform);
+        }
+
         return true;
     }
 
@@ -234,11 +238,13 @@ public class PlayerController : MonoBehaviour
     public void SpeedUp()
     {
         m_moveSpeed = m_initMoveSpeed * m_sprintSpeedMultiplier;
+        m_catAnimator.SetBool("Dash", true);
     }
 
     public void BackToNormalSpeed()
     {
         m_moveSpeed = m_initMoveSpeed;
+        m_catAnimator.SetBool("Dash", false);
     }
 
     public void Sprint()
@@ -328,7 +334,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-
+        transform.SetParent(null);
         m_rigid.velocity += new Vector2(0, m_jumpForce);
     }
 
