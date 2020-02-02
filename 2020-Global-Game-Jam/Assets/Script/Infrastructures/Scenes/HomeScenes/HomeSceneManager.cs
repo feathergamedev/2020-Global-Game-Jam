@@ -57,7 +57,7 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
         private void Start()
         {
-            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Twirly_Tops));
+            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Mute));
 
             if (!ProgressHelper.I.GetSawStory())
             {
@@ -66,7 +66,7 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
             }
             else
             {
-                StartCoroutine(HideMask());
+                StartCoroutine(ShowTitle());
             }
 
             IEnumerator ShowMask(Color maskColor, float duration = 1f)
@@ -85,6 +85,12 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
                 DOTween.ToAlpha(() => mask.color, (c) => mask.color = c, 0, duration);
                 yield return new WaitForSeconds(duration);
                 mask.gameObject.SetActive(false);
+            }
+
+            IEnumerator ShowTitle()
+            {
+                yield return HideMask();
+                OnTitleShow();
             }
 
             IEnumerator ShowStory()
@@ -109,7 +115,13 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
                 storyRoot.SetActive(false);
                 yield return HideMask(3f);
+                OnTitleShow();
             }
+        }
+
+        private void OnTitleShow()
+        {
+            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Twirly_Tops));
         }
 
         private void OnPlayButtonClicked()
@@ -133,6 +145,8 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
             {
                 story.gameObject.SetActive(false);
             }
+
+            OnTitleShow();
         }
     }
 }
