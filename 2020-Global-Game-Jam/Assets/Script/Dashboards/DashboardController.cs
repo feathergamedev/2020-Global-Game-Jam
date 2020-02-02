@@ -34,11 +34,11 @@ namespace Repair.Dashboards
             m_keys = m_keyContainer.GetComponentsInChildren<KeyController>();
 
             m_nerves = new NerveController[m_nerveCount];
-            for (var i=0; i< m_nerveCount; i++)
+            for (var i = 0; i < m_nerveCount; i++)
             {
                 var nerve = Instantiate(m_nerverSettings.GetRandomNerve(), m_nerveContainer);
                 nerve.transform.localPosition = new Vector3(
-                    Random.Range(m_nerverSettings.MinInitX, m_nerverSettings.MaxInitX),0, 0);
+                    Random.Range(m_nerverSettings.MinInitX, m_nerverSettings.MaxInitX), 0, 0);
 
                 nerve.SetInitRotation(Random.Range(0f, m_nerverSettings.InitRotationRange));
                 m_nerves[i] = nerve;
