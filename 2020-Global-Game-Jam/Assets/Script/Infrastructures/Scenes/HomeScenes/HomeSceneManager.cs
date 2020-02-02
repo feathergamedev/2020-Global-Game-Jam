@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Repair.Infrastructures.Core;
 using Repair.Infrastructures.Events;
@@ -68,21 +69,21 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
                 StartCoroutine(HideMask());
             }
 
-            IEnumerator ShowMask()
+            IEnumerator ShowMask(Color maskColor, float duration = 1f)
             {
-                var color = mask.color;
+                var color = maskColor;
                 mask.color = new Color(color.r, color.g, color.b, 0);
                 mask.gameObject.SetActive(true);
-                DOTween.ToAlpha(() => mask.color, (c) => mask.color = c, 1, 1f);
-                yield return new WaitForSeconds(1f);
+                DOTween.ToAlpha(() => mask.color, (c) => mask.color = c, 1, duration);
+                yield return new WaitForSeconds(duration);
             }
 
-            IEnumerator HideMask()
+            IEnumerator HideMask(float duration = 1f)
             {
                 var color = mask.color;
                 mask.color = new Color(color.r, color.g, color.b, 1);
-                DOTween.ToAlpha(() => mask.color, (c) => mask.color = c, 0, 1f);
-                yield return new WaitForSeconds(1f);
+                DOTween.ToAlpha(() => mask.color, (c) => mask.color = c, 0, duration);
+                yield return new WaitForSeconds(duration);
                 mask.gameObject.SetActive(false);
             }
 
@@ -94,12 +95,20 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
                     story.gameObject.SetActive(true);
                     yield return HideMask();
                     yield return new WaitForSeconds(2f);
-                    yield return ShowMask();
-                    story.gameObject.SetActive(false);
+                    if (story != stories.Last())
+                    {
+                        yield return ShowMask(Color.black);
+                        story.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        yield return ShowMask(Color.white);
+                        story.gameObject.SetActive(false);
+                    }
                 }
 
                 storyRoot.SetActive(false);
-                yield return HideMask();
+                yield return HideMask(3f);
             }
         }
 
