@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: NerveSettings
   m_EditorClassIdentifier: 
   m_nervePrefabs:
-  - {fileID: 7808362095596714135, guid: d757102f67973424192cdc54c89af6bb, type: 3}
-  - {fileID: 6370154402509337179, guid: fd56bd4a30e124aaea5ddef771e1aaf4, type: 3}
-  - {fileID: 495253230691824944, guid: 107f4559c41d64724861c183391d2db1, type: 3}
+  - {fileID: 7808362095596714135, guid: bb60e4fc796b948ca844c8965bb31746, type: 3}
+  - {fileID: 7808362095596714135, guid: 5dad55811e8304bb9ac175a7f14f4b08, type: 3}
+  - {fileID: 7808362095596714135, guid: a242da2c6a7a74060ab087fbab2fa636, type: 3}
+  - {fileID: 7808362095596714135, guid: bd7b04cbb04a745c7a18f0785c01bf7f, type: 3}
   MinInitX: -360
   MaxInitX: 360
   InitRotationRange: 360
