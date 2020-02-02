@@ -381,8 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6047a3e5bad464cfd9e2a76d74ce8766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_linkEffect: {fileID: 0}
-  m_powerUpEffect: {fileID: 0}
+  m_linkEffect: {fileID: 2745884675912467605}
+  m_powerUpEffect: {fileID: 6527093574453105432}
   LinkGroup: 0
   m_keyCode: 122
 --- !u!61 &6046108589308074741
