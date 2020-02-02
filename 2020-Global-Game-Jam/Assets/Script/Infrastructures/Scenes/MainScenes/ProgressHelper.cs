@@ -7,6 +7,7 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         private int maxStage;
         private int currentStage;
         private bool gameComplete;
+        private bool sawStory;
 
         internal void Initialize(int max)
         {
@@ -42,5 +43,9 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         internal bool GetComplete() => gameComplete;
 
         internal void SetComplete(bool complete) => gameComplete = complete;
+
+        internal bool GetSawStory() => sawStory;
+
+        internal void SetSawStory(bool saw) => sawStory = saw;
     }
 }
