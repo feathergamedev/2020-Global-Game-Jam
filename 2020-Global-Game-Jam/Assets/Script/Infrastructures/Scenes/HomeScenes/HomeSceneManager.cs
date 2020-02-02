@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -32,6 +33,9 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
         [SerializeField]
         private Image mask;
 
+        [SerializeField]
+        private Image sceneMask;
+
         private void Awake()
         {
             App.I.Initialize();
@@ -41,6 +45,7 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
             creditButton.onClick.AddListener(OnCreditButtonClicked);
 
             mask.gameObject.SetActive(true);
+
             storyRoot.SetActive(false);
             foreach (var story in stories)
             {
@@ -95,6 +100,8 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
 
             IEnumerator ShowStory()
             {
+                EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Story_BGM));
+
                 storyRoot.SetActive(true);
                 foreach (var story in stories)
                 {
@@ -108,13 +115,16 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
                     }
                     else
                     {
-                        yield return ShowMask(Color.white);
+                        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.Car_Hit, 3));
+                        skipButton.gameObject.SetActive(false);
+                        yield return ShowMask(Color.white, 4f);
                         story.gameObject.SetActive(false);
                     }
                 }
 
+                EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Mute));
                 storyRoot.SetActive(false);
-                yield return HideMask(3f);
+                yield return HideMask();
                 OnTitleShow();
             }
         }
@@ -147,6 +157,26 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
             }
 
             OnTitleShow();
+        }
+
+        private IEnumerator FadeInSceneMask(Action callback)
+        {
+            var color = Color.black;
+            sceneMask.color = new Color(color.r, color.g, color.b, 0);
+            sceneMask.gameObject.SetActive(true);
+            DOTween.ToAlpha(() => sceneMask.color, (c) => sceneMask.color = c, 1, 1);
+            yield return new WaitForSeconds(1);
+            callback?.Invoke();
+        }
+
+        private IEnumerator FadeOutSceneMask(Action callback)
+        {
+            var color = Color.black;
+            sceneMask.color = new Color(color.r, color.g, color.b, 1);
+            sceneMask.gameObject.SetActive(true);
+            DOTween.ToAlpha(() => sceneMask.color, (c) => sceneMask.color = c, 0, 1);
+            yield return new WaitForSeconds(1);
+            callback?.Invoke();
         }
     }
 }

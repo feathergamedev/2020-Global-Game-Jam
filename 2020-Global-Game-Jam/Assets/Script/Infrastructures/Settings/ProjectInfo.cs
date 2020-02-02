@@ -9,6 +9,7 @@ namespace Repair.Infrastructures.Settings
     {
         Mute,
         quiet_voices_roomtone,
+        Story_BGM,
         Twirly_Tops,
 
     }
@@ -20,6 +21,7 @@ namespace Repair.Infrastructures.Settings
     public enum SoundType
     {
         Mute,
+        Car_Hit,
         Cartoon_Boing,
         cat_screaming,
         cat_screech_frightened,
