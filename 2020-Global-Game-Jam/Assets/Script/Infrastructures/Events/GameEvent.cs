@@ -7,6 +7,7 @@ namespace Repair.Infrastructures.Events
     {
         None,
         Restart,
+        Killed,
         Complete,
         Action,
         GameStart,

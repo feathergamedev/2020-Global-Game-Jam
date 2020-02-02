@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         m_rigid = GetComponent<Rigidbody2D>();
 
         EventEmitter.Add(GameEvent.Action, HandleOnAction);
+        EventEmitter.Add(GameEvent.Killed, ElectricKill);
     }
 
     // Start is called before the first frame update
@@ -67,8 +68,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Removed!");
         EventEmitter.Remove(GameEvent.Action, HandleOnAction);
+        EventEmitter.Remove(GameEvent.Killed, ElectricKill);
+
     }
 
     // Update is called once per frame
@@ -273,5 +275,17 @@ public class PlayerController : MonoBehaviour
             return;
 
         m_rigid.velocity += new Vector2(0, m_jumpForce);
+    }
+
+    public void ElectricKill(IEvent @event)
+    {
+        m_catAnimator.SetTrigger("Die");
+        StartCoroutine(DiePerform());
+    }
+
+    private IEnumerator DiePerform()
+    {
+        yield return new WaitForSeconds(1.05f);
+        EventEmitter.Emit(GameEvent.Restart);
     }
 }
