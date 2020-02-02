@@ -98,6 +98,7 @@ namespace Repair.Infrastructures.Scenes.HomeScenes
                     story.gameObject.SetActive(false);
                 }
 
+                storyRoot.SetActive(false);
                 yield return HideMask();
             }
         }
