@@ -5,6 +5,9 @@ using Repair.Infrastructures.Events;
 
 public class FinishPoint : MonoBehaviour
 {
+    [SerializeField]
+    private Animator m_animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,10 @@ public class FinishPoint : MonoBehaviour
         {
             EventEmitter.Emit(GameEvent.StageClear);
         }
+    }
+
+    public void CloseBox()
+    {
+        m_animator.SetBool("Close", true);
     }
 }

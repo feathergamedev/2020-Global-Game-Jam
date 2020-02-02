@@ -336,6 +336,7 @@ public class PlayerController : MonoBehaviour
 
         transform.SetParent(null);
         m_rigid.velocity += new Vector2(0, m_jumpForce);
+//        EventEmitter.Emit(GameEvent.PlaySound, new SoundEvent(SoundType.carj )
     }
 
     public void ElectricKill(IEvent @event)
