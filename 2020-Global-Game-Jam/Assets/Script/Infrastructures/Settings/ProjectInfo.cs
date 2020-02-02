@@ -65,6 +65,7 @@ namespace Repair.Infrastructures.Settings
             public static readonly TagInfo Player = new TagInfo(index: 5, name: "Player");
             public static readonly TagInfo GameController = new TagInfo(index: 6, name: "GameController");
             public static readonly TagInfo FinishPoint = new TagInfo(index: 7, name: "FinishPoint");
+            public static readonly TagInfo Floating = new TagInfo(index: 8, name: "Floating");
 
         }
 
