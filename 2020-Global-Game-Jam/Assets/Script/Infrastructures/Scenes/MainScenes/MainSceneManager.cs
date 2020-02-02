@@ -37,7 +37,7 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         private void Start()
         {
             NotifyGameStart();
-            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Slug_Love_87));
+            EventEmitter.Emit(GameEvent.PlayMusic, new MusicEvent(MusicType.Twirly_Tops));
         }
 
         private void OnDestroy()
@@ -110,12 +110,12 @@ namespace Repair.Infrastructures.Scenes.MainScenes
 
         private void ReloadScene()
         {
-            //SceneManager.LoadScene(ProjectInfo.SceneInfos.Main.BuildIndex);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void ShowCredit()
         {
+            ProgressHelper.I.SetComplete(true);
             SceneManager.LoadScene(ProjectInfo.SceneInfos.Credit.BuildIndex);
         }
 

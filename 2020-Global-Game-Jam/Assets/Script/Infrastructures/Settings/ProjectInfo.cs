@@ -8,7 +8,8 @@ namespace Repair.Infrastructures.Settings
     public enum MusicType
     {
         Mute,
-        Slug_Love_87,
+        quiet_voices_roomtone,
+        Twirly_Tops,
 
     }
 
@@ -19,9 +20,18 @@ namespace Repair.Infrastructures.Settings
     public enum SoundType
     {
         Mute,
-        Beep_Short,
         Cartoon_Boing,
+        cat_screaming,
+        cat_screech_frightened,
         Clown_Horn_Squeak,
+        Kids_Playing,
+        meow_001,
+        meow_002,
+        meow_003,
+        meow_004,
+        meow_005,
+        meow_006,
+        meow_007,
 
     }
 
