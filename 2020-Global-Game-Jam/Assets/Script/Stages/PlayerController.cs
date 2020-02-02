@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
             RequestAttack();
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKey(KeyCode.I))
         {
             Debug.Log("Yo");
             Jump();
