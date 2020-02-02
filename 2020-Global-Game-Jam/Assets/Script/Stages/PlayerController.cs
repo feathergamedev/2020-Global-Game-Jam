@@ -93,6 +93,36 @@ public class PlayerController : MonoBehaviour
         {
             m_rigid.velocity -= new Vector2(0, m_rigid.velocity.y);
         }
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            MoveLeft();
+        }
+        else if (Input.GetKey(KeyCode.L))
+        {
+            MoveRight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            RequestAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SpeedUp();
+        }
+
+        if (m_catAnimator.GetBool("Walk") == false)
+        {
+            m_rigid.velocity = new Vector2(0f, m_rigid.velocity.y);
+        }
+
     }
 
     private void HandleOnAction(IEvent @event)
@@ -112,7 +142,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            StopWalking();
+            m_catAnimator.SetBool("Walk", false);
         }
 
         if ((e & ActionType.Sprint) == ActionType.Sprint)
@@ -158,7 +188,6 @@ public class PlayerController : MonoBehaviour
 
     public void StopWalking()
     {
-        m_rigid.velocity -= new Vector2(m_rigid.velocity.x, 0);
         m_catAnimator.SetBool("Walk", false);
     }
 
