@@ -164,14 +164,11 @@ namespace Repair.Dashboards
                 }
             }
 
-            foreach (var pair in m_linkGroup)
+            foreach (var cell in m_allCells)
             {
-                if (!m_powerUpGroups.Contains(pair.Key))
+                if (!cell.IsPowerUp)
                 {
-                    foreach (var cell in m_linkGroup[pair.Key])
-                    {
-                        cell.IsPowerUp = false;
-                    }
+                    cell.IsPowerUp = false;
                 }
             }
 
