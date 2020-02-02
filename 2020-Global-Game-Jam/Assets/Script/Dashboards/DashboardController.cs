@@ -239,9 +239,19 @@ namespace Repair.Dashboards
         {
             const float r = 2000f;
             const float duration = 0.8f;
-            var ao = 360f / m_nerves.Count();
+            const float shackDelay = 0.5f;
+            const float nerveDelay = 0.8f;
+            const float shackStrong = 50f;
+            const int vibrto = 200;
+            const float startAo = 180f;
+            var ao = 180f / m_nerves.Count();
             var idx = 0;
-            var startAo = Random.Range(0, ao);
+
+            foreach (var cell in m_allCells)
+            {
+                cell.transform.DOShakePosition(duration, shackStrong, vibrto).SetDelay(shackDelay);
+            }
+
             foreach (var nerve in m_nerves)
             {
                 if (nerve == null)
@@ -249,12 +259,12 @@ namespace Repair.Dashboards
                     continue;
                 }
 
-                var x = r * Math.Cos((startAo + ao * Math.PI * idx) / 180);
-                var y = r * Math.Sin((ao * Math.PI * idx) / 180);
+                var x = r * Math.Cos((startAo + ao * idx) * Math.PI / 180);
+                var y = r * Math.Sin((startAo + ao * idx) * Math.PI / 180);
                 var rotate = Random.Range(0, 720);
 
-                nerve.transform.DOLocalMove(new Vector3((float)x, (float)y), duration);
-                nerve.transform.DOLocalRotate(new Vector3(0, 0, rotate), duration);
+                nerve.transform.DOLocalMove(new Vector3((float)x, (float)y), duration).SetDelay(nerveDelay);
+                nerve.transform.DOLocalRotate(new Vector3(0, 0, rotate), duration).SetDelay(nerveDelay);
 
                 idx++;
             }
