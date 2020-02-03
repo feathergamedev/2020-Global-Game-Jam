@@ -54,6 +54,10 @@ namespace Repair.Dashboards
             }
 
             transform.localPosition = new Vector3(x, y);
+
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+            EventEmitter.Emit(GameEvent.KeyPressed, new KeyCodeEvent(KeyCode.A));
+#endif
         }
 
         private void OnMouseUp()

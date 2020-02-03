@@ -9,7 +9,12 @@ namespace Repair.Dashboards.Helpers
         private RotationStatus m_rotationStatus;
         public RotationStatus RotationStatus => m_rotationStatus;
 
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+        public const float MAX_SPEED = 150f;
+#else
         public const float MAX_SPEED = 350f;
+#endif
+
         public const float MIN_SPEED = 30f;
         public const float INTERVAL_SPEED = 15f;
 

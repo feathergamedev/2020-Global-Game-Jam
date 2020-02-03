@@ -20,17 +20,22 @@ namespace Repair.Dashboards
 
         private void Start()
         {
+#if UNITY_WEBGL || UNITY_EDITOR || UNITY_STANDALONE
             EventEmitter.Add(GameEvent.NerversDraging, OnNeverDragging);
+#endif
             gameObject.SetActive(!IsRotationKey);
         }
 
         private void OnDestroy()
         {
+#if UNITY_WEBGL || UNITY_EDITOR || UNITY_STANDALONE
             EventEmitter.Remove(GameEvent.NerversDraging, OnNeverDragging);
+#endif
         }
 
         private void OnNeverDragging(IEvent @event)
         {
+#if UNITY_WEBGL || UNITY_EDITOR || UNITY_STANDALONE
             if (!IsRotationKey)
             {
                 return;
@@ -38,6 +43,7 @@ namespace Repair.Dashboards
 
             var isDragging = (@event as BoolEvent).Value;
             gameObject.SetActive(isDragging);
+#endif
         }
 
         public void Trigger()
