@@ -172,7 +172,7 @@ namespace Repair.Dashboards
             {
                 if (!cell.IsPowerUp)
                 {
-                    cell.IsPowerUp = false;
+                    cell.TriggerPowerUp(false);
                 }
             }
 
@@ -219,20 +219,20 @@ namespace Repair.Dashboards
         {
             foreach (var pair in m_linkGroup)
             {
-
                 if (pair.Value.Any(e => e is ActionController) && pair.Value.Any(e => e is KeyController))
                 {
-                    foreach (var cells in pair.Value)
+                    foreach (var cell in pair.Value)
                     {
-                        cells.IsLinked = true;
+                        cell.IsLinked = true;
                     }
                 }
-                else
+            }
+
+            foreach (var cell in m_allCells)
+            {
+                if (!cell.IsLinked)
                 {
-                    foreach (var cells in pair.Value)
-                    {
-                        cells.IsLinked = false;
-                    }
+                    cell.TriggerLinked(false);
                 }
             }
         }
@@ -279,13 +279,11 @@ namespace Repair.Dashboards
 
         private void OnKeyPressed(IEvent @event)
         {
-            Debug.Log("OnKeyPressed" + (@event as KeyCodeEvent).Value);
             m_pressedKeyCodes.Add((@event as KeyCodeEvent).Value);
         }
 
         private void OnKeyUp(IEvent @event)
         {
-            Debug.Log("OnKeyUp" + (@event as KeyCodeEvent).Value);
             m_pressedKeyCodes.Remove((@event as KeyCodeEvent).Value);
         }
     }

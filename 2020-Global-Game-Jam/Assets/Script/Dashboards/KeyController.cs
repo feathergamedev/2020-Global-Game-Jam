@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Repair.Dashboard.Events;
-using Repair.Infrastructures.Events;
+﻿using Repair.Infrastructures.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Repair.Dashboards
 {
-    public class KeyController : BaseCellController
+    public class KeyController : BaseCellController, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField]
         private KeyCode m_keyCode;
@@ -49,12 +47,12 @@ namespace Repair.Dashboards
 
         public void OnPointerDown(PointerEventData eventData)
         {
-
+            EventEmitter.Emit(GameEvent.KeyPressed, new KeyCodeEvent(KeyCode));
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-
+            EventEmitter.Emit(GameEvent.KeyUp, new KeyCodeEvent(KeyCode));
         }
     }
 }
