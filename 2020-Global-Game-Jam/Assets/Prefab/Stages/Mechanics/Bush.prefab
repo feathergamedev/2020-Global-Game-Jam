@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3080160498244026034}
   - component: {fileID: 5588252545226883880}
   m_Layer: 8
-  m_Name: WoodenCase
+  m_Name: Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

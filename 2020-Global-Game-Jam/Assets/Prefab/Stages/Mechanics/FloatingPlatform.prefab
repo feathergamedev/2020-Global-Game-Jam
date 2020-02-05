@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1814545080563491323}
   m_Layer: 8
-  m_Name: Boundary-R
+  m_Name: Boundary-Max
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814545080563491320}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.98, y: 8.38, z: 0}
+  m_LocalPosition: {x: 12.51, y: 15.36, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1814545080888970651}
@@ -77,10 +77,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_platform: {fileID: 1814545082268248669}
-  m_moveSpeed: 3
-  m_curMoveDirection: 0
-  m_boundaryL: {fileID: 1814545082504428811}
-  m_boundaryR: {fileID: 1814545080563491323}
+  m_collider: {fileID: 1814545082268248668}
+  m_minBoundary: {fileID: 1814545082504428811}
+  m_maxBoundary: {fileID: 1814545080563491323}
+  m_moveSpeed: 5
+  m_moveVector: {x: 0, y: 0, z: 0}
 --- !u!1 &1814545082268248669
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,9 +243,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1814545082504428811}
   m_Layer: 8
-  m_Name: Boundary-L
+  m_Name: Boundary-Min
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -256,7 +257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814545082504428808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.06, y: 8.38, z: 0}
+  m_LocalPosition: {x: 7.1, y: 3.2, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1814545080888970651}
