@@ -1467,7 +1467,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639229495427912669}
-  - component: {fileID: 3203483981341428616}
   m_Layer: 0
   m_Name: StageBackground
   m_TagString: Untagged
@@ -1514,19 +1513,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3203483981341428616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639229495427912670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4022f273837c47a8a37af2b7615fbdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_initPlayerPos: {x: -4.1, y: 4.13, z: 0}
 --- !u!1 &1639229497264075345
 GameObject:
   m_ObjectHideFlags: 0

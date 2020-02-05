@@ -94,6 +94,13 @@ namespace Repair.Infrastructures.Scenes.MainScenes
         private IEnumerator DisplayStageId()
         {
             var currentStage = ProgressHelper.I.GetStage();
+
+            if (currentStage >= stageSprites.Count)
+            {
+                Debug.LogError("Don't have stage sprite.");
+                yield break;
+            }
+
             stageId.sprite = stageSprites[currentStage];
             yield return new WaitForSeconds(2);
             DOTween.ToAlpha(() => stageId.color, (c) => stageId.color = c, 0, 1);

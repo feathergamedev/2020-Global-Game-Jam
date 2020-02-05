@@ -193,6 +193,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Initialize(Vector3 initPos)
+    {
+        m_rigid.velocity = Vector2.zero;
+        transform.position = initPos;
+    }
+
     private bool GroundCheck()
     {
         var DetectSize = m_groundDetectTransform.localScale;
@@ -201,6 +207,7 @@ public class PlayerController : MonoBehaviour
         if (platform == null)
         {
             m_curTouchingPlatform = null;
+            transform.SetParent(null);
             return false;
         }
 
@@ -318,7 +325,7 @@ public class PlayerController : MonoBehaviour
     public void ElectricKill(IEvent @event)
     {
         Debug.LogWarning("ElectricKill");
-        transform.parent = null;
+        transform.SetParent(null);
         m_catAnimator.SetTrigger("Die");
         m_collider.enabled = false;
         m_rigid.velocity = Vector2.zero;

@@ -16,11 +16,11 @@ public class WoodenCase : MonoBehaviour
 
     public void Eliminated()
     {
-        var player = transform.Find("Player_Art").gameObject;
-
+        var player = transform.Find("Player_Art");
+        
         if (player != null)
         {
-            player.transform.parent = null;
+            player.parent = null;
         }
 
         m_animator.SetBool("Hurt", true);
