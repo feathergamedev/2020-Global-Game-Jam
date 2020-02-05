@@ -158,31 +158,26 @@ namespace Repair.Infrastructures.Scenes.MainScenes
                 HandleOnRestart();
             }
 
-            /*
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                ProgressHelper.I.SetStage(0);
-                ReloadScene();
-            }
+#if UNITY_EDITOR
 
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                ProgressHelper.I.SetStage(1);
-                ReloadScene();
-            }
+            DetectSwitchLevel();
 
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                ProgressHelper.I.SetStage(2);
-                ReloadScene();
-            }
+#endif
+        }
 
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+        void DetectSwitchLevel()
+        {
+            var alpha1 = 49;
+
+            for (int i=0; i<10; i++)
             {
-                ProgressHelper.I.SetStage(3);
-                ReloadScene();
+                var levelIndex = alpha1 + i;
+                if (Input.GetKeyDown((KeyCode)levelIndex))
+                {
+                    ProgressHelper.I.SetStage(levelIndex - 49);
+                    ReloadScene();
+                }
             }
-            */
         }
     }
 }

@@ -113,8 +113,7 @@ public class PlayerController : MonoBehaviour
 
         m_catAnimator.SetBool("OnGround", m_isOnGround);
 
-        /*
-
+#if UNITY_EDITOR        
         if (Input.GetKey(KeyCode.J))
         {
             MoveLeft();
@@ -135,12 +134,11 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKey(KeyCode.Y))
+        if (Input.GetKey(KeyCode.F))
         {
             SpeedUp();
         }
-
-        */
+#endif
 
         if (m_catAnimator.GetBool("Walk") == false)
         {
@@ -200,8 +198,6 @@ public class PlayerController : MonoBehaviour
         var DetectSize = m_groundDetectTransform.localScale;
         var platform = Physics2D.OverlapBox(m_groundDetectTransform.position, DetectSize, 0, m_layerGround);
 
-
-
         if (platform == null)
         {
             m_curTouchingPlatform = null;
@@ -209,12 +205,7 @@ public class PlayerController : MonoBehaviour
         }
 
         m_curTouchingPlatform = platform.gameObject;
-
-        if (platform.gameObject.tag == "Floating")
-        {
-            Debug.Log("Set to parent.");
-            transform.SetParent(m_curTouchingPlatform.transform);
-        }
+        transform.SetParent(m_curTouchingPlatform.transform);
 
         return true;
     }
@@ -270,13 +261,6 @@ public class PlayerController : MonoBehaviour
         m_catAnimator.SetBool("Dash", false);
     }
 
-    public void Sprint()
-    {
-        var sprintForce = m_sprintForce * ((m_isFacingRight == true) ? 1 : -1);
-        Debug.Log(sprintForce);
-        StartCoroutine(SprintPerform(sprintForce));
-    }
-
     public void RequestAttack()
     {
         if (m_isAttacking == true)
@@ -311,46 +295,6 @@ public class PlayerController : MonoBehaviour
         m_isAttacking = false;
     }
 
-    private IEnumerator SprintPerform(Vector2 force)
-    {
-        m_sprintEffect.emitting = true;
-
-        m_rigid.velocity = force;
-        /*
-                var time = m_sprintDuration * 60f;
-
-                for(int i=0; i<time; i++)
-                {
-                    var newVelocity = force - force / time;
-                    m_rigid.velocity = newVelocity;
-                }
-        */
-
-        var newVelocity = force;
-        var curX = force.x;
-        var curY = force.y;
-        var isPerforming = true;
-
-        DOTween.To(() => curX, x => curX = x, 0, m_sprintDuration);
-        DOTween.To(() => curY, y => curX = y, 0, m_sprintDuration);
-
-        DOVirtual.DelayedCall(m_sprintDuration, () => { isPerforming = false; });
-
-        for (int i = 0; i < m_sprintDuration * 60f; i++)
-        {
-            Debug.LogFormat("X:{0}, Y:{1}", curX, curY);
-            newVelocity = new Vector2(curX, curY);
-            Debug.LogFormat("NewVelocity is {0}", newVelocity);
-            m_rigid.velocity = newVelocity;
-            yield return new WaitForSeconds(m_sprintDuration / 60f);
-        }
-
-        m_sprintEffect.emitting = false;
-
-
-        yield return null;
-    }
-
     public void Jump()
     {
         if (!m_isOnGround || m_isJumping)
@@ -374,6 +318,7 @@ public class PlayerController : MonoBehaviour
     public void ElectricKill(IEvent @event)
     {
         Debug.LogWarning("ElectricKill");
+        transform.parent = null;
         m_catAnimator.SetTrigger("Die");
         m_collider.enabled = false;
         m_rigid.velocity = Vector2.zero;
@@ -411,12 +356,17 @@ public class PlayerController : MonoBehaviour
     private IEnumerator StageClearPerform()
     {
         yield return new WaitForSeconds(1.0f);
-
-        // Fade out;
-
         EventEmitter.Emit(GameEvent.Complete);
-
         yield return null;
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "InstantKill":
+                EventEmitter.Emit(GameEvent.Killed);
+                break;
+        }
     }
 }

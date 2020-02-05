@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - FinishPoint
+  - InstantKill
   - Floating
   layers:
   - Default
@@ -18,7 +19,7 @@ TagManager:
   - Platform
   - Player
   - Mechanic
-  - 
+  - Attack
   - 
   - 
   - 
