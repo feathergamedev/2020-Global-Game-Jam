@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-
 using System.IO;
 using System.Text;
 using UnityEditor;
@@ -204,5 +202,3 @@ namespace Repair.Infrastructures.Settings
         }
     }
 }
-
-#endif
