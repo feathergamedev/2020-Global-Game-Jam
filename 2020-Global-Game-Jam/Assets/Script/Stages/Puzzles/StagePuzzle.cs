@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +9,9 @@ namespace Repair.Stages.Puzzles
         [Serializable]
         private class TransformSetting
         {
+            public string name;
             public Vector3 position = Vector3.zero;
-
             public Quaternion rotation;
-
             public Vector3 scale = Vector3.one;
         }
 
@@ -27,8 +25,11 @@ namespace Repair.Stages.Puzzles
         }
 
         [Serializable]
-        private class DecorationSettings : TransformSetting
+        private class DecorationSettings
         {
+            public string name;
+            public Vector3 position = Vector3.zero;
+
             public DecorationType type = DecorationType.None;
         }
 
@@ -90,6 +91,7 @@ namespace Repair.Stages.Puzzles
 
                 if (instance != null)
                 {
+                    instance.name = string.IsNullOrEmpty(decorationSetting.name) ? decorationSetting.type.ToString() : decorationSetting.name;
                     ResetTransform(instance.transform, decorationSetting);
                 }
             }
@@ -100,6 +102,7 @@ namespace Repair.Stages.Puzzles
             foreach (var floorSetting in floorSettings)
             {
                 var floor = Instantiate(floorPrefab, floorsRoot);
+                floor.name = floorSetting.name;
                 ResetTransform(floor.transform, floorSetting);
             }
         }
@@ -111,5 +114,60 @@ namespace Repair.Stages.Puzzles
             transform.localScale = setting.scale;
         }
 
+        private void ResetTransform(Transform transform, DecorationSettings setting)
+        {
+            transform.localPosition = setting.position;
+        }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            var color = Gizmos.color;
+            foreach (var setting in decorationSettings)
+            {
+                switch (setting.type)
+                {
+                    case DecorationType.Mountain:
+                        DrawGizmo(mountainPrefab, Color.red, setting);
+                        break;
+
+                    case DecorationType.Cloud:
+                        DrawGizmo(cloudPrefab, Color.blue, setting);
+                        break;
+
+                    case DecorationType.Tree:
+                        DrawGizmo(treePrefab, Color.green, setting);
+                        break;
+                }
+            }
+
+            foreach (var setting in floorSettings)
+            {
+                DrawGizmoWithScale(floorPrefab, Color.gray, setting);
+            }
+
+            Gizmos.color = color;
+
+            void DrawGizmo(GameObject prefab, Color gizmoColor, DecorationSettings setting)
+            {
+                var prefabTransform = prefab.transform as RectTransform;
+                var size = prefabTransform.rect.size;
+                var offset = (prefabTransform.pivot - new Vector2(0.5f, 0.5f)) * size;
+                var center = transform.position + setting.position + new Vector3(offset.x, -offset.y, 0);
+                Gizmos.color = gizmoColor;
+                Gizmos.DrawWireCube(center, new Vector3(size.x, size.y, 1));
+            }
+
+            void DrawGizmoWithScale(GameObject prefab, Color gizmoColor, TransformSetting setting)
+            {
+                var prefabTransform = prefab.transform as RectTransform;
+                var size = prefabTransform.rect.size * setting.scale;
+                var offset = (prefabTransform.pivot - new Vector2(0.5f, 0.5f)) * size;
+                var center = transform.position + setting.position + new Vector3(offset.x, -offset.y, 0);
+                Gizmos.color = gizmoColor;
+                Gizmos.DrawWireCube(center, new Vector3(size.x, size.y, 1));
+            }
+        }
+#endif
     }
 }

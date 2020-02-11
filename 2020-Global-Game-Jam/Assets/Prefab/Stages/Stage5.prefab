@@ -115,36 +115,33 @@ MonoBehaviour:
   treePrefab: {fileID: 5395423693924816321, guid: 23d1ab0059faa45e9857373855c3796c,
     type: 3}
   decorationSettings:
-  - position: {x: 5, y: 2, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 1, y: 1, z: 1}
+  - name: Mountain 1
+    position: {x: 1, y: 2, z: 0}
     type: 2
-  - position: {x: 7, y: 2, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 1, y: 1, z: 1}
+  - name: Mountain 2
+    position: {x: 8, y: 2, z: 0}
     type: 2
-  - position: {x: 1, y: 2, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 1, y: 1, z: 1}
+  - name: Cloud 1
+    position: {x: 1, y: 2, z: 0}
     type: 3
-  - position: {x: 7, y: 2, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 1, y: 1, z: 1}
+  - name: Cloud 2
+    position: {x: 7, y: 2, z: 0}
     type: 3
-  - position: {x: 2, y: 2, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 1, y: 1, z: 1}
+  - name: Tree 1
+    position: {x: 2, y: 2, z: 0}
     type: 4
   floorsRoot: {fileID: 3381394547563729214}
   floorPrefab: {fileID: 4069826733169812547, guid: 4f55258d9bac64f009e670213884bb5d,
     type: 3}
   floorSettings:
-  - position: {x: 0, y: 2, z: 0}
+  - name: Floor 1
+    position: {x: 0, y: 2, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 10, y: 15, z: 10}
-  - position: {x: 10, y: 2, z: 0}
+    scale: {x: 10, y: 15, z: 1}
+  - name: Floor 2
+    position: {x: 10, y: 2, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
-    scale: {x: 10, y: 15, z: 10}
+    scale: {x: 10, y: 15, z: 1}
 --- !u!1 &6189987247023023927
 GameObject:
   m_ObjectHideFlags: 0
